@@ -1,0 +1,18 @@
+rootProject.name = 'driveradaptermyslq'
+
+include ':app-service'
+include ':model'
+include ':usecase'
+project(':app-service').projectDir = file('./applications/app-service')
+project(':model').projectDir = file('./domain/model')
+project(':usecase').projectDir = file('./domain/usecase')
+include ':jpa-repository'
+project(':jpa-repository').projectDir = file('./infrastructure/driven-adapters/jpa-repository')
+include ':apirest'
+project(':apirest').projectDir = file('./infrastructure/entry-points/apirest')
+include ':api-rest'
+project(':api-rest').projectDir = file('./infrastructure/entry-points/api-rest')
+include ':technical-logs-utility'
+project(':technical-logs-utility').projectDir = file('./infrastructure/helpers/technical-logs-utility')
+include ':technical-logs-utility'
+project(':technical-logs-utility').projectDir = file('./infrastructure/driven-adapters/technical-logs-utility')
