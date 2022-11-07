@@ -20,7 +20,7 @@ public class BrandUseCase {
             logger.info("Saving");
             return repository.saveBrand(data);
         } catch (Exception ex) {
-            logger.error("Error saving  -->", ex);
+            logger.error("Error saving brand-->", ex);
             return null;
         }
     }
@@ -30,7 +30,7 @@ public class BrandUseCase {
             logger.info("Updating");
             return repository.saveBrand(data);
         } catch (Exception ex) {
-            logger.error("Error updating  -->", ex);
+            logger.error("Error updating brand-->", ex);
             return null;
         }
     }
@@ -41,12 +41,11 @@ public class BrandUseCase {
             list = repository.getAll();
             logger.info("Getting list");
         } catch (Exception ex) {
-            logger.error("Error Getting list -->", ex);
+            logger.error("Error Getting brand list -->", ex);
             return Collections.emptyList();
         }
         return list;
     }
-
 
     public Brand getById(Long id) {
         return repository.findById(id);
@@ -55,5 +54,4 @@ public class BrandUseCase {
     public void deleteById(Long id) {
         repository.delete(id);
     }
-
 }

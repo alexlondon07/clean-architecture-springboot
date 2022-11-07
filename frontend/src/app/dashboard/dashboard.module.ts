@@ -11,7 +11,6 @@ import { OurVisiterComponent } from './dashboard-components/our-visiter/our-visi
 import { ProfileComponent } from './dashboard-components/profile/profile.component';
 import { ContactsComponent } from './dashboard-components/contacts/contacts.component';
 import { ActivityTimelineComponent } from './dashboard-components/activity-timeline/activity-timeline.component';
-
 @NgModule({
   imports: [
     CommonModule,

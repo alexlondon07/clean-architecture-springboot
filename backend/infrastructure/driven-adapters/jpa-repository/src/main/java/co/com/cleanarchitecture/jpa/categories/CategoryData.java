@@ -28,6 +28,9 @@ public class CategoryData {
     @Column(length = 40, nullable = true)
     private String code;
 
+    @Column(name = "group_name", length = 60, nullable = true)
+    private String groupName;
+
     private boolean enable = true;
 
 }

@@ -96,7 +96,9 @@ import { PortalModule } from '@angular/cdk/portal';
         ObserversModule,
         OverlayModule,
         PlatformModule,
-        PortalModule
+        PortalModule,
+        MatTableModule,
+        MatPaginatorModule
     ]
 })
 export class DemoMaterialModule { }
