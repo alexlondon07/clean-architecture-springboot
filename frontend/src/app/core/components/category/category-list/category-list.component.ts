@@ -71,25 +71,27 @@ export class CategoryListComponent implements AfterViewInit {
   }
 
   getDataPage(page: string, size: string) {
-    this.service.getAllPages(page, size).subscribe(
-      (data) => {
-        this.manageResponsePages(data);
+    this.service.getAllPages(page, size).subscribe({
+      complete: () => console.info('complete') ,
+      error: err => {
+        console.log(err.error.message);
       },
-      (error) => {
-        console.log(error.error.message);
-      }
-    );
+      next: resp => {
+        this.manageResponsePages(resp);
+      },
+    });
   }
 
   getDataPageWithText(page: string, size: string, text: string) {
-    this.service.getAllPagesWithText(page, size, text).subscribe(
-      (data) => {
-        this.manageResponsePages(data);
+    this.service.getAllPagesWithText(page, size, text).subscribe({
+      complete: () => console.info('complete') ,
+      error: err => {
+        console.log(err.error.message);
       },
-      (error) => {
-        console.log(error.error.message);
-      }
-    );
+      next: resp => {
+        this.manageResponsePages(resp);
+      },
+    });
   }
 
   deactivateCategory(category: Category) {
