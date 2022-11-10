@@ -51,4 +51,9 @@ public class CategoryDataAdapter extends AdapterOperations<
         return super.findById(id);
     }
 
+    @Override
+    public void enable(Long id, Boolean enable) {
+        repository.enable(id, enable);
+    }
+
 }

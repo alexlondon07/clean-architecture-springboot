@@ -53,6 +53,10 @@ public class CategoryUseCase {
         return repository.findById(id);
     }
 
+    public void enable(Long id, Boolean enable){
+        repository.enable(id, enable);
+    }
+
     public void deleteById(Long id) {
         repository.delete(id);
     }

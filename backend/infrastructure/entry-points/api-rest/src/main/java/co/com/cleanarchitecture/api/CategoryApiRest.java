@@ -29,12 +29,10 @@ import co.com.cleanarchitecture.api.exceptions.ResourceNotFoundException;
 import co.com.cleanarchitecture.api.util.Utility;
 import co.com.cleanarchitecture.model.category.Category;
 import co.com.cleanarchitecture.usecase.category.CategoryUseCase;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import technicalogs.gateways.LoggerRepository;
 
-@Api(value = "Category Rest Controller", description = "REST API for Category")
 @RestController
 @RequestMapping(value = "/v1/api/categories", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
@@ -101,6 +99,14 @@ public class CategoryApiRest {
         validateIfExistCategoryById(id);
         beanCategoryUseCase.deleteById(id);
     }
+
+    @GetMapping({"/{id}/{enable}"})
+    public void enableCategory(@PathVariable("id") Long id,
+                               @PathVariable("enable") Boolean enable) {
+        validateIfExistCategoryById(id);
+        beanCategoryUseCase.enable(id, enable);
+    }
+
 
     private void validateIfExistCategoryById(Long id) {
         if (Objects.isNull(id)) {

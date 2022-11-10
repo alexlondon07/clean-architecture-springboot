@@ -56,4 +56,8 @@ export abstract class CommonService<E extends Generic> {
       return this.http.delete<E>(`${this.baseEnpoint}/${id}`)
     }
 
+    public enable(id: number, enable: Boolean): Observable<any>{
+      return this.http.get<E>(`${this.baseEnpoint}/${id}/${enable}`)
+    }
+
 }

@@ -16,7 +16,7 @@ import { CategoryService } from "src/app/core/services/category.service";
   templateUrl: './category-list.component.html',
   styleUrls: ['./category-list.component.css']
 })
-export class CategoryListComponent implements AfterViewInit  {
+export class CategoryListComponent implements AfterViewInit {
   title: string = 'Categorias';
   description: string = 'Listado de categorias registradas en el sistema';
 
@@ -70,7 +70,7 @@ export class CategoryListComponent implements AfterViewInit  {
     this.getDataPage(this.pageIndex.toString(), this.pageSize.toString());
   }
 
-  getDataPage(page:string, size:string) {
+  getDataPage(page: string, size: string) {
     this.service.getAllPages(page, size).subscribe(
       (data) => {
         this.manageResponsePages(data);
@@ -81,7 +81,7 @@ export class CategoryListComponent implements AfterViewInit  {
     );
   }
 
-  getDataPageWithText(page:string, size:string, text:string) {
+  getDataPageWithText(page: string, size: string, text: string) {
     this.service.getAllPagesWithText(page, size, text).subscribe(
       (data) => {
         this.manageResponsePages(data);
@@ -92,7 +92,18 @@ export class CategoryListComponent implements AfterViewInit  {
     );
   }
 
-  manageResponsePages(data:any) {
+  deactivateCategory(category: Category) {
+    this.service.enable(category.id, !category.enable).subscribe(
+      (data) => {
+        console.log(data)
+      },
+      (error) => {
+        console.log(error.error.message);
+      }
+    );
+  }
+
+  manageResponsePages(data: any) {
     this.dataSource = new MatTableDataSource(data["content"]);
     this.dataList = data["content"];
     this.totalElements = data["totalElements"] as number;
@@ -100,6 +111,7 @@ export class CategoryListComponent implements AfterViewInit  {
     this.dataSource.paginator = this.paginator;
     this.detectChanges();
   }
+
 }
 
 

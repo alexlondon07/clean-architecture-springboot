@@ -13,4 +13,6 @@ public interface CategoryRepository {
     void delete(Long id);
 
     Category findById(Long id);
+
+    void enable(Long id, Boolean enable);
 }
