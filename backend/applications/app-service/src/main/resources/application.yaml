@@ -16,3 +16,6 @@ spring:
     hibernate:
       ddl-auto: update
     databasePlatform: "org.hibernate.dialect.MySQL5Dialect"
+  jwt:
+    jwtSecret: bezKoderSecretKey
+    jwtExpirationMs: 86400000

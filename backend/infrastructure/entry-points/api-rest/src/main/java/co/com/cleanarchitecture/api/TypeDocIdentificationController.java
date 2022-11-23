@@ -22,7 +22,7 @@ import technicalogs.gateways.LoggerRepository;
 @RestController
 @RequestMapping(value = "/v1/api/type-identifications", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
-public class TypeDocIdentificationApiRest {
+public class TypeDocIdentificationController {
 
     private final TypeDocIdentificationUseCase typeDocIdentificationUseCase;
     private final LoggerRepository logger;

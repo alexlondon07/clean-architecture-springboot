@@ -23,98 +23,89 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.com.cleanarchitecture.api.dto.CategoryDTO;
+import co.com.cleanarchitecture.api.dto.BrandDTO;
 import co.com.cleanarchitecture.api.exceptions.MissingDataException;
 import co.com.cleanarchitecture.api.exceptions.ResourceNotFoundException;
 import co.com.cleanarchitecture.api.util.Utility;
-import co.com.cleanarchitecture.model.category.Category;
-import co.com.cleanarchitecture.usecase.category.CategoryUseCase;
-import io.swagger.annotations.ApiOperation;
+import co.com.cleanarchitecture.model.brand.Brand;
+import co.com.cleanarchitecture.usecase.brand.BrandUseCase;
 import lombok.AllArgsConstructor;
 import technicalogs.gateways.LoggerRepository;
 
 @RestController
-@RequestMapping(value = "/v1/api/categories", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/v1/api/brands", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
-public class CategoryApiRest {
+public class BrandController {
 
-    private final CategoryUseCase beanCategoryUseCase;
+    private final BrandUseCase beanBrandUseCase;
     private final LoggerRepository logger;
 
     @PostMapping
-    public ResponseEntity<?> save(@Valid @RequestBody CategoryDTO categoryDto,
+    public ResponseEntity<?> save(@Valid @RequestBody BrandDTO data,
                                   BindingResult bindingResult) {
-        logger.info("Saving category ----->" + categoryDto.toBuilder().toString());
+        logger.info("Saving ----->" + data.toBuilder().toString());
 
         if (bindingResult.hasErrors()) {
             return Utility.validateRequest(bindingResult);
         }
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(beanCategoryUseCase.saveCategory(categoryDto.convertToEntity(categoryDto)));
+                .body(beanBrandUseCase.save(data.convertToEntity(data)));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@Valid @RequestBody CategoryDTO categoryDto,
+    public ResponseEntity<?> update(@Valid @RequestBody BrandDTO brandDTO,
                                     BindingResult bindingResult,
                                     @PathVariable Long id) {
-        logger.info("Updating category ----->" + categoryDto.toBuilder().toString());
+        logger.info("Updating ----->" + brandDTO.toBuilder().toString());
 
-        validateIfExistCategoryById(id);
+        validateIfExistBrandById(id);
 
         if (bindingResult.hasErrors()) {
             return Utility.validateRequest(bindingResult);
         }
 
-        categoryDto.setId(id);
+        brandDTO.setId(id);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(beanCategoryUseCase.updateCategory(
-                        categoryDto.convertToEntity(categoryDto)));
+                .body(beanBrandUseCase.update(
+                        brandDTO.convertToEntity(brandDTO)));
     }
 
-    @ApiOperation(value = "Get Category list ", response = Iterable.class, tags = "getAll")
     @GetMapping
     public ResponseEntity<?> getAll() {
-        List<Category> categoryList = beanCategoryUseCase.getCategories();
-        return new ResponseEntity<>(categoryList, HttpStatus.OK);
+        List<Brand> brandList = beanBrandUseCase.getAll();
+        return new ResponseEntity<>(brandList, HttpStatus.OK);
     }
 
     @GetMapping({"/{id}"})
     public ResponseEntity<?> show(@PathVariable("id") Long id) {
-        validateIfExistCategoryById(id);
-        return new ResponseEntity<>(beanCategoryUseCase.getById(id), HttpStatus.OK);
+        validateIfExistBrandById(id);
+        return new ResponseEntity<>(beanBrandUseCase.getById(id), HttpStatus.OK);
     }
 
     @GetMapping("/page/{page}/{size}")
     public ResponseEntity<?> getAllPageable(@PathVariable Integer page, @PathVariable Integer size) {
         Pageable pageable = PageRequest.of(page, size);
-        List<Category> categoryList = beanCategoryUseCase.getCategories();
-        Page<Category> pages = new PageImpl<>(categoryList, pageable, categoryList.size());
+        List<Brand> brandList = beanBrandUseCase.getAll();
+        Page<Brand> pages = new PageImpl<>(brandList, pageable, brandList.size());
         return new ResponseEntity<>(pages, HttpStatus.OK);
     }
 
     @DeleteMapping({"/{id}"})
     public void delete(@PathVariable("id") Long id) {
-        validateIfExistCategoryById(id);
-        beanCategoryUseCase.deleteById(id);
+        validateIfExistBrandById(id);
+        beanBrandUseCase.deleteById(id);
     }
 
-    @GetMapping({"/{id}/{enable}"})
-    public void enableCategory(@PathVariable("id") Long id,
-                               @PathVariable("enable") Boolean enable) {
-        validateIfExistCategoryById(id);
-        beanCategoryUseCase.enable(id, enable);
-    }
-
-
-    private void validateIfExistCategoryById(Long id) {
+    private void validateIfExistBrandById(Long id) {
         if (Objects.isNull(id)) {
             throw new MissingDataException();
         }
-        Category categoryBB = beanCategoryUseCase.getById(id);
-        if (Objects.isNull(categoryBB)) {
+        Brand brandBD = beanBrandUseCase.getById(id);
+        if (Objects.isNull(brandBD)) {
             throw new ResourceNotFoundException();
         }
     }
+
 }

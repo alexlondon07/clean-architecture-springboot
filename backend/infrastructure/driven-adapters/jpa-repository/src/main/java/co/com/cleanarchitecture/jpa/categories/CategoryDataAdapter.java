@@ -16,13 +16,13 @@ public class CategoryDataAdapter extends AdapterOperations<
         Category, CategoryData, Long,
         CategoryDataRepository> implements CategoryRepository {
 
-    public CategoryDataAdapter(CategoryDataRepository repository, ObjectMapper mapper) {
-        /**
-         *  Could be use mapper.mapBuilder if your domain model implement builder pattern
-         *  super(repository, mapper, d -> mapper.mapBuilder(d,ObjectModel.ObjectModelBuilder.class).build());
-         *  Or using mapper.map with the class of the object model
-         */
+    public CategoryDataAdapter(CategoryDataRepository repository, ObjectMapper mapper) {        /**
+     *  Could be use mapper.mapBuilder if your domain model implement builder pattern
+     *  super(repository, mapper, d -> mapper.mapBuilder(d,ObjectModel.ObjectModelBuilder.class).build());
+     *  Or using mapper.map with the class of the object model
+     */
         super(repository, mapper, d -> mapper.map(d, Category.class));
+
 
     }
 
