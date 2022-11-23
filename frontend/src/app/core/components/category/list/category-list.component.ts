@@ -11,6 +11,7 @@ import { MatSort } from "@angular/material/sort";
 import { MatDialog } from "@angular/material/dialog";
 import { Category } from '../../../models/category';
 import { CategoryService } from "src/app/core/services/category.service";
+import { CategoryFormComponent } from '../create-edit/category-form.component';
 @Component({
   selector: 'app-category-list',
   templateUrl: './category-list.component.html',
@@ -46,6 +47,12 @@ export class CategoryListComponent implements AfterViewInit {
     this.getDataPage(this.pageIndex.toString(), this.pageSize.toString());
   }
 
+
+  openDialog(): void {
+    const dialogRef = this._dialog.open(CategoryFormComponent,{
+      width: '640px',disableClose: true
+    });
+}
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

@@ -2,7 +2,7 @@ package co.com.cleanarchitecture.api.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import co.com.cleanarchitecture.model.category.Category;
@@ -19,11 +19,11 @@ public class CategoryDTO implements Serializable {
 
     private Long id;
 
-    @NotNull
+    @NotBlank
     @Size(min = 3, max = 90)
     private String name;
 
-    @NotNull
+    @NotBlank
     @Size(min = 3, max = 40)
     private String groupName;
 

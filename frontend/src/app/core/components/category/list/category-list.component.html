@@ -40,4 +40,9 @@
             <mat-paginator #paginator [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex" [pageSize]="pageSize" [length]="totalElements" (page)="nextPage($event)"> </mat-paginator>
         </div>
     </mat-card-content>
+
+    <button class="mine" title="Nuevo registro" (click)="openDialog()" mat-fab color="primary">
+			<mat-icon>add</mat-icon>
+		</button>
+
 </mat-card>

@@ -1,0 +1,67 @@
+<div>
+    <div class="add-title">
+        <h2 class="primary">{{ titleForm }}</h2>
+    </div>
+    <div>
+        <div>
+            <form [formGroup]="form" (change)="formChanged()">
+                <mat-grid-list cols="2" [cols]="breakpoint" rowHeight="85px" (window:resize)="onResize($event)">
+                    <mat-grid-tile>
+                        <div class="text-inside">
+                            <mat-form-field>
+                                <input matInput placeholder="Nombre" value={{fname}} formControlName="name" required>
+                                <mat-error *ngIf="form.controls.name.hasError('required')">
+                                    El campo nombre es requerido
+                                </mat-error>
+                                <mat-error *ngIf="form.controls.name.hasError('pattern')">
+                                    Por favor, introduzca un nombre válido
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="text-inside">
+                            <mat-form-field>
+                                <input matInput placeholder="Código" formControlName="code" required>
+                                <mat-error *ngIf="form.controls.code.hasError('required')">
+                                    El campo código es requerido
+                                </mat-error>
+                                <mat-error *ngIf="form.controls.code.hasError('pattern')">
+                                    Por favor, introduzca un nombre válido
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="text-inside">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="Grupo" formControlName="groupName">
+                                    <mat-option *ngFor="let group of groupList" [value]="group">{{group}}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="form.controls.groupName.hasError('required')">
+                                    Debes seleccionar un item de la lista
+                                </mat-error>
+
+                            </mat-form-field>
+                        </div>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <div class="text-inside">
+                            <mat-radio-group formControlName="enable">
+                                <div style="color:grey;">Habilitado</div>
+                                <mat-radio-button [checked]="true" color="primary" style="padding:4px 4px 0px 0px;" value="1">Activo</mat-radio-button>
+                                <mat-radio-button color="primary" style="padding:4px 0px 0px 24px;" value="0">Inactivo</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+
+                <div class="btn-sec">
+                    <button mat-raised-button [disabled]="!form.valid" type="submit" color="primary" class="Update-btn">Guardar</button>
+                    <button mat-raised-button type="button" class="Discard-btn" (click)="openDialog()">Cancelar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>

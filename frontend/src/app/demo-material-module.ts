@@ -17,7 +17,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
@@ -25,7 +24,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
@@ -49,6 +47,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { PlatformModule } from '@angular/cdk/platform';
 import { ObserversModule } from '@angular/cdk/observers';
 import { PortalModule } from '@angular/cdk/portal';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 /**
  * NgModule that includes all Material modules that are required to serve the demo-app.
@@ -67,7 +67,6 @@ import { PortalModule } from '@angular/cdk/portal';
         MatDialogModule,
         MatExpansionModule,
         MatFormFieldModule,
-        MatGridListModule,
         MatIconModule,
         MatInputModule,
         MatListModule,
@@ -75,7 +74,6 @@ import { PortalModule } from '@angular/cdk/portal';
         MatPaginatorModule,
         MatProgressBarModule,
         MatProgressSpinnerModule,
-        MatRadioModule,
         MatRippleModule,
         MatSelectModule,
         MatBadgeModule,
@@ -98,7 +96,10 @@ import { PortalModule } from '@angular/cdk/portal';
         PlatformModule,
         PortalModule,
         MatTableModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatProgressSpinnerModule,
+        MatRadioModule,
+        MatGridListModule,
     ]
 })
 export class DemoMaterialModule { }

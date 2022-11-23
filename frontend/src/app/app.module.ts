@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { LocationStrategy, PathLocationStrategy, CommonModule } from '@angular/common';
 import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
 
@@ -17,15 +17,21 @@ import { DemoMaterialModule } from './demo-material-module';
 
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
+import {  HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoadingComponent } from './core/shared/loading/loading.component';
+import { SpinnerInterceptorService } from './core/services/shared/spinner-interceptor.service';
 
+import { CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 @NgModule({
   declarations: [
     AppComponent,
     FullComponent,
     AppHeaderComponent,
     SpinnerComponent,
-    AppSidebarComponent
+    AppSidebarComponent,
+    LoadingComponent,
   ],
+  entryComponents: [ LoadingComponent ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -37,6 +43,7 @@ import { SpinnerComponent } from './shared/spinner.component';
     RouterModule.forRoot(AppRoutes)
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptorService, multi: true },
     {
       provide: LocationStrategy,
       useClass: PathLocationStrategy

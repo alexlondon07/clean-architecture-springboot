@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { BrandListComponent } from './components/brand/brand-list/brand-list.component';
-import { CategoryListComponent } from './components/category/category-list/category-list.component';
+import { CategoryListComponent } from './components/category/list/category-list.component';
 
 
 export const CoreRoutes: Routes = [

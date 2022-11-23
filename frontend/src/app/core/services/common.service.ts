@@ -23,11 +23,6 @@ export abstract class CommonService<E extends Generic> {
       const params = new HttpParams()
         .set('page', page)
         .set('size', size)
-
-        console.log(this.baseEnpoint);
-
-        console.log(`${this.baseEnpoint}/page/${page}/${size}`);
-
       return this.http.get<any>(`${this.baseEnpoint}/page/${page}/${size}`, { params: params });
     }
 

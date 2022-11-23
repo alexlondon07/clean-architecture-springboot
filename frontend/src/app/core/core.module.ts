@@ -11,7 +11,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CoreRoutes } from './core.routing';
 import { DemoMaterialModule } from '../demo-material-module';
 import { BrandListComponent } from './components/brand/brand-list/brand-list.component';
-import { CategoryListComponent } from './components/category/category-list/category-list.component';
+import { CategoryListComponent } from './components/category/list/category-list.component';
+import { CategoryFormComponent } from './components/category/create-edit/category-form.component';
+import { CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 
 @NgModule({
   imports: [
@@ -24,6 +26,12 @@ import { CategoryListComponent } from './components/category/category-list/categ
     CdkTableModule,
     DemoMaterialModule
   ],
-  declarations: [BrandListComponent, CategoryListComponent]
+  entryComponents: [ CategoryFormComponent ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  declarations: [
+    BrandListComponent,
+    CategoryListComponent,
+    CategoryFormComponent
+  ]
 })
 export class CoreModule { }
