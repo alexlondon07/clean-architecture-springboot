@@ -7,9 +7,11 @@ import co.com.cleanarchitecture.model.user.User;
 
 public interface UserRepository {
 
-    Optional<User> findByUsername(String username);
+    User findByUsername(String username);
 
     Boolean existsByUsername(String username);
 
     Boolean existsByEmail(String email);
+
+    User save(User user);
 }

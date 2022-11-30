@@ -12,8 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CategoryDataAdapter extends AdapterOperations<
-        Category, CategoryData, Long,
+public class CategoryDataAdapter extends AdapterOperations< Category, CategoryData, Long,
         CategoryDataRepository> implements CategoryRepository {
 
     public CategoryDataAdapter(CategoryDataRepository repository, ObjectMapper mapper) {        /**

@@ -22,17 +22,17 @@ public class UserDataAdapter extends AdapterOperations<User, UserData, Long, Use
     }
 
     @Override
-    public Optional<User> findByUsername(String username) {
-        return Optional.empty();
+    public User findByUsername(String username) {
+        return repository.findByUsername(username);
     }
 
     @Override
     public Boolean existsByUsername(String username) {
-        return null;
+        return repository.existsByUsername(username);
     }
 
     @Override
     public Boolean existsByEmail(String email) {
-        return null;
+        return repository.existsByEmail(email);
     }
 }

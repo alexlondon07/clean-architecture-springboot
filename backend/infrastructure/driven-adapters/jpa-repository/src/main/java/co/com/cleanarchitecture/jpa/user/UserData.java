@@ -19,7 +19,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import co.com.cleanarchitecture.jpa.rol.RoleData;
+import co.com.cleanarchitecture.jpa.role.RoleData;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -61,7 +61,6 @@ public class UserData {
     @NotBlank
     @Size(max = 120)
     private String password;
-
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",

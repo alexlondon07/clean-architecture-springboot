@@ -1,10 +1,9 @@
 package co.com.cleanarchitecture.model.role.gateways;
 
-import java.util.Optional;
+import co.com.cleanarchitecture.model.role.Role;
 
-import javax.management.relation.Role;
 
 public interface RoleRepository {
 
-    Optional<Role> findByName(Role name);
+    Role findByName(String name);
 }

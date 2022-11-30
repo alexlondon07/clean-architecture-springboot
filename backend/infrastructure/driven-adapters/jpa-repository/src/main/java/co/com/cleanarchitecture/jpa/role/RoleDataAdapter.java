@@ -1,7 +1,5 @@
-package co.com.cleanarchitecture.jpa.rol;
+package co.com.cleanarchitecture.jpa.role;
 
-
-import java.util.Optional;
 
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -18,7 +16,8 @@ public class RoleDataAdapter extends AdapterOperations<Role, RoleData, Long, Rol
         }
 
         @Override
-        public Optional<javax.management.relation.Role> findByName(javax.management.relation.Role name) {
-                return Optional.empty();
+        public Role findByName(String name) {
+                return repository.findByName(name);
         }
+
 }

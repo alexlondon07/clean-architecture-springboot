@@ -1,4 +1,4 @@
-package co.com.cleanarchitecture.jpa.rol;
+package co.com.cleanarchitecture.jpa.role;
 
 
 import javax.persistence.Column;
@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import co.com.cleanarchitecture.model.role.ERole;
+import co.com.cleanarchitecture.model.role.Role;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,15 +20,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "roles")
-public class RoleData {
+public class RoleData extends Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private ERole name;
+    private String name;
+
 }
 

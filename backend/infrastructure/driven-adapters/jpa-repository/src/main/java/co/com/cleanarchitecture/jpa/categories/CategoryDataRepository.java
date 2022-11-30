@@ -13,5 +13,5 @@ public interface CategoryDataRepository extends PagingAndSortingRepository<Categ
     @Transactional
     @Modifying
     @Query("Update CategoryData c SET c.enable=:enable WHERE c.id=:id")
-    public void enable(@Param("id") Long id, @Param("enable") Boolean enable);
+    void enable(@Param("id") Long id, @Param("enable") Boolean enable);
 }

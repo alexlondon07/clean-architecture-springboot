@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.management.relation.Role;
-
+import co.com.cleanarchitecture.model.role.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
