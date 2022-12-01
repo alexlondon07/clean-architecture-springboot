@@ -1,6 +1,5 @@
 package co.com.cleanarchitecture.model.user;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class User implements Serializable {
+public class User {
     private Long id;
     private String username;
     private String email;

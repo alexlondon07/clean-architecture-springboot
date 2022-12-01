@@ -20,6 +20,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import co.com.cleanarchitecture.jpa.role.RoleData;
+import co.com.cleanarchitecture.model.role.Role;
+import co.com.cleanarchitecture.model.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -68,4 +70,22 @@ public class UserData {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleData> roles = new HashSet<>();
 
+
+    public static User getUserFromUserData(UserData userData) {
+
+        if (userData==null)
+            return null;
+
+        Set<Role> roles = new HashSet<>(userData.getRoles());
+        return User.builder()
+                .id(userData.getId())
+                .name(userData.getName())
+                .username(userData.getUsername())
+                .lastName(userData.getLastName())
+                .password(userData.getPassword())
+                .email(userData.getEmail())
+                .enable(userData.isEnable())
+                .roles(roles)
+                .build();
+    }
 }

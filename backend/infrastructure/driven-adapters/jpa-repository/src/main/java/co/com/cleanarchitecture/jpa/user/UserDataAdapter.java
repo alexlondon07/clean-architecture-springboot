@@ -13,12 +13,12 @@ import co.com.cleanarchitecture.model.user.gateways.UserRepository;
 public class UserDataAdapter extends AdapterOperations<User, UserData, Long, UserDataRepository> implements UserRepository {
 
     public UserDataAdapter(UserDataRepository repository, ObjectMapper mapper) {
-       super(repository, mapper, d -> mapper.map(d, User.class));
+        super(repository, mapper, d -> mapper.map(d, User.class));
     }
 
     @Override
     public User findByUsername(String username) {
-        return repository.findByUsername(username);
+        return UserData.getUserFromUserData(repository.findByUsername(username));
     }
 
     @Override

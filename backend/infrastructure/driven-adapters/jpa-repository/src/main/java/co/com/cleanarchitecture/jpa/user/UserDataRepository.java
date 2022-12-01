@@ -8,7 +8,7 @@ import co.com.cleanarchitecture.model.user.User;
 
 public interface UserDataRepository extends JpaRepository<UserData, Long>, QueryByExampleExecutor<UserData> {
 
-    User findByUsername(String username);
+    UserData findByUsername(String username);
 
     boolean existsByUsername(String username);
 
