@@ -1,8 +1,5 @@
 package co.com.cleanarchitecture.usecase.user;
 
-
-import java.util.Optional;
-
 import co.com.cleanarchitecture.model.user.User;
 import co.com.cleanarchitecture.model.user.gateways.UserRepository;
 import lombok.RequiredArgsConstructor;

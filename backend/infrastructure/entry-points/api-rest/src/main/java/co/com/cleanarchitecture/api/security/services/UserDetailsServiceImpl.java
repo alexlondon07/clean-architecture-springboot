@@ -5,20 +5,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import co.com.cleanarchitecture.model.role.gateways.RoleRepository;
 import co.com.cleanarchitecture.model.user.User;
 import co.com.cleanarchitecture.usecase.user.UserUseCase;
 import lombok.AllArgsConstructor;
-import technicalogs.gateways.LoggerRepository;
 
 
 @AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private UserUseCase useCase;
-
-    public UserDetailsServiceImpl(RoleRepository repository, LoggerRepository logger) {
-    }
+    private  UserUseCase useCase;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

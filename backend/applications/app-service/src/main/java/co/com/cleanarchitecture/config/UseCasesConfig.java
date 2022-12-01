@@ -57,9 +57,8 @@ public class UseCasesConfig {
     }
 
     @Bean
-    public UserDetailsServiceImpl beanUserDetailsServiceImplUseCase(RoleRepository repository,
-                                                                    LoggerRepository logger) {
-        return new UserDetailsServiceImpl(repository, logger);
+    public UserDetailsServiceImpl beanUserDetailsServiceImplUseCase(UserUseCase repository) {
+        return new UserDetailsServiceImpl(repository);
     }
 
 }
