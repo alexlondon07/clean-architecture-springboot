@@ -2,6 +2,7 @@ package co.com.cleanarchitecture.jpa.user;
 
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -18,6 +19,8 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import org.hibernate.Hibernate;
 
 import co.com.cleanarchitecture.jpa.role.RoleData;
 import co.com.cleanarchitecture.model.role.Role;

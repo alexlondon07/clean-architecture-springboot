@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -75,12 +76,14 @@ public class CategoryController {
 
     @ApiOperation(value = "Get Category list ", response = Iterable.class, tags = "getAll")
     @GetMapping
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> getAll() {
         List<Category> categoryList = beanCategoryUseCase.getCategories();
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
     }
 
     @GetMapping({"/{id}"})
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> show(@PathVariable("id") Long id) {
         validateIfExistCategoryById(id);
         return new ResponseEntity<>(beanCategoryUseCase.getById(id), HttpStatus.OK);

@@ -3,6 +3,8 @@ package co.com.cleanarchitecture.jpa.user;
 
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.com.cleanarchitecture.jpa.helper.AdapterOperations;
 import co.com.cleanarchitecture.model.user.User;
@@ -16,6 +18,7 @@ public class UserDataAdapter extends AdapterOperations<User, UserData, Long, Use
         super(repository, mapper, d -> mapper.map(d, User.class));
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public User findByUsername(String username) {
         return UserData.getUserFromUserData(repository.findByUsername(username));

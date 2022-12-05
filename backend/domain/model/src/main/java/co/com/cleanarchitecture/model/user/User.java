@@ -6,10 +6,12 @@ import java.util.Set;
 import co.com.cleanarchitecture.model.role.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
