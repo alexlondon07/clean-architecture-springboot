@@ -1,4 +1,4 @@
-package co.com.cleanarchitecture.api;
+package co.com.cleanarchitecture.api.controllers;
 
 import java.util.Date;
 import java.util.List;
@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -49,6 +50,7 @@ public class UserController {
 
 
     @GetMapping({"/{username}"})
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> getUserByUsername(@PathVariable("username") String username) {
 
         User user = userUseCase.findByUsername(username);
@@ -59,6 +61,7 @@ public class UserController {
                     .body(new MessageResponse("Error: Username not found!"));
         }
 
+        user.setPassword(null);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

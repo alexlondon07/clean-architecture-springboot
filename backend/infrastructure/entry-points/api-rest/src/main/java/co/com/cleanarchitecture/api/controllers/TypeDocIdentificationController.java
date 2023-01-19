@@ -1,4 +1,4 @@
-package co.com.cleanarchitecture.api;
+package co.com.cleanarchitecture.api.controllers;
 
 import java.util.List;
 import java.util.Objects;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.com.cleanarchitecture.api.exceptions.MissingDataException;
 import co.com.cleanarchitecture.api.exceptions.ResourceNotFoundException;
-import co.com.cleanarchitecture.model.category.Category;
 import co.com.cleanarchitecture.model.typeidentification.TypeDocIdentification;
 import co.com.cleanarchitecture.usecase.typedocidentification.TypeDocIdentificationUseCase;
 import lombok.AllArgsConstructor;
