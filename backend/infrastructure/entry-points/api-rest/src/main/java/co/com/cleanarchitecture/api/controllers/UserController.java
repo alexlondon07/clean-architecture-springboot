@@ -37,18 +37,6 @@ public class UserController {
     private final UserUseCase userUseCase;
     private final LoggerRepository logger;
 
-    @PostMapping
-    public UserDTO login(@RequestParam("user") String username, @RequestParam("password") String pwd) {
-
-        String token = getJWTToken(username);
-        UserDTO user = new UserDTO();
-        user.setUser(username);
-        user.setToken(token);
-        return user;
-
-    }
-
-
     @GetMapping({"/{username}"})
     @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> getUserByUsername(@PathVariable("username") String username) {
