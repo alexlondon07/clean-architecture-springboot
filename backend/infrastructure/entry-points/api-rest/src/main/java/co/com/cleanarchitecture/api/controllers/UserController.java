@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,17 +15,15 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.cleanarchitecture.api.dto.MessageResponse;
-import co.com.cleanarchitecture.api.dto.UserDTO;
 import co.com.cleanarchitecture.model.user.User;
 import co.com.cleanarchitecture.usecase.user.UserUseCase;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import technicalogs.gateways.LoggerRepository;
 
@@ -60,7 +59,7 @@ public class UserController {
 
         String token = Jwts
                 .builder()
-                .setId("softtekJWT")
+                .setId("cleanArchitectureJWT")
                 .setSubject(username)
                 .claim("authorities",
                         grantedAuthorities.stream()
