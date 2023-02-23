@@ -10,7 +10,6 @@ import { MatDialog } from "@angular/material/dialog";
 export class CategoryFormComponent implements OnInit {
   public titleForm: string = "Agregar categoría";
   public breakpoint: number; // Breakpoint observer code
-  public fname: string = `Categoria`;
   public form: FormGroup;
   wasFormChanged = false;
 
@@ -26,7 +25,7 @@ export class CategoryFormComponent implements OnInit {
     this.form = this.fb.group({
       id: null,
       name: [
-        this.fname,
+        null,
         [Validators.required, Validators.pattern("[a-zA-Z]+([a-zA-Z ]+)*")],
       ],
       code: [

@@ -22,6 +22,7 @@ import { LoadingComponent } from './core/shared/loading/loading.component';
 import { SpinnerInterceptorService } from './core/services/shared/spinner-interceptor.service';
 
 import { CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
+import { LoginComponent } from './core/components/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +31,7 @@ import { CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
     SpinnerComponent,
     AppSidebarComponent,
     LoadingComponent,
+    LoginComponent,
   ],
   entryComponents: [ LoadingComponent ],
   imports: [

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +22,6 @@ import co.com.cleanarchitecture.model.user.User;
 import co.com.cleanarchitecture.usecase.user.UserUseCase;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import technicalogs.gateways.LoggerRepository;
 

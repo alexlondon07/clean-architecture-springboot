@@ -19,7 +19,7 @@ import lombok.AllArgsConstructor;
 import technicalogs.gateways.LoggerRepository;
 
 @RestController
-@RequestMapping(value = "/v1/api/type-identifications", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/type-identifications", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 public class TypeDocIdentificationController {
 
@@ -27,14 +27,14 @@ public class TypeDocIdentificationController {
     private final LoggerRepository logger;
 
     @GetMapping
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<List<TypeDocIdentification>> getAll() {
         List<TypeDocIdentification> typeDocIdentificationList = typeDocIdentificationUseCase
                 .getTypeDocIdentifications();
         return new ResponseEntity<>(typeDocIdentificationList, HttpStatus.OK);
     }
 
     @GetMapping({"/{id}"})
-    public ResponseEntity<?> show(@PathVariable("id") Long id) {
+    public ResponseEntity<TypeDocIdentification> show(@PathVariable("id") Long id) {
         validateIfExistTypeDocIdentificationById(id);
         return new ResponseEntity<>(
                 typeDocIdentificationUseCase.getById(id), HttpStatus.OK);

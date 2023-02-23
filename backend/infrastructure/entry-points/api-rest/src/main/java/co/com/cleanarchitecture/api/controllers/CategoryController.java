@@ -35,7 +35,7 @@ import lombok.AllArgsConstructor;
 import technicalogs.gateways.LoggerRepository;
 
 @RestController
-@RequestMapping(value = "/v1/api/categories", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/categories", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 public class CategoryController {
 
@@ -77,20 +77,20 @@ public class CategoryController {
     @ApiOperation(value = "Get Category list ", response = Iterable.class, tags = "getAll")
     @GetMapping
     @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<List<Category>> getAll() {
         List<Category> categoryList = beanCategoryUseCase.getCategories();
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
     }
 
     @GetMapping({"/{id}"})
     @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<?> show(@PathVariable("id") Long id) {
+    public ResponseEntity<Category> show(@PathVariable("id") Long id) {
         validateIfExistCategoryById(id);
         return new ResponseEntity<>(beanCategoryUseCase.getById(id), HttpStatus.OK);
     }
 
     @GetMapping("/page/{page}/{size}")
-    public ResponseEntity<?> getAllPageable(@PathVariable Integer page, @PathVariable Integer size) {
+    public ResponseEntity<Page<Category>> getAllPageable(@PathVariable Integer page, @PathVariable Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         List<Category> categoryList = beanCategoryUseCase.getCategories();
         Page<Category> pages = new PageImpl<>(categoryList, pageable, categoryList.size());

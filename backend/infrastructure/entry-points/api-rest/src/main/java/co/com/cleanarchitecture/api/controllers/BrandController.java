@@ -33,7 +33,7 @@ import lombok.AllArgsConstructor;
 import technicalogs.gateways.LoggerRepository;
 
 @RestController
-@RequestMapping(value = "/v1/api/brands", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/brands", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 public class BrandController {
 
@@ -73,19 +73,19 @@ public class BrandController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<List<Brand>> getAll() {
         List<Brand> brandList = beanBrandUseCase.getAll();
         return new ResponseEntity<>(brandList, HttpStatus.OK);
     }
 
     @GetMapping({"/{id}"})
-    public ResponseEntity<?> show(@PathVariable("id") Long id) {
+    public ResponseEntity<Brand> show(@PathVariable("id") Long id) {
         validateIfExistBrandById(id);
         return new ResponseEntity<>(beanBrandUseCase.getById(id), HttpStatus.OK);
     }
 
     @GetMapping("/page/{page}/{size}")
-    public ResponseEntity<?> getAllPageable(@PathVariable Integer page, @PathVariable Integer size) {
+    public ResponseEntity<Page<Brand>> getAllPageable(@PathVariable Integer page, @PathVariable Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         List<Brand> brandList = beanBrandUseCase.getAll();
         Page<Brand> pages = new PageImpl<>(brandList, pageable, brandList.size());
