@@ -18,4 +18,6 @@ spring:
     databasePlatform: "org.hibernate.dialect.MySQL5Dialect"
   jwt:
     jwtSecret: bezKoderSecretKey
-    jwtExpirationMs: 86400000
+    jwtExpirationMs: 7200000 # two hours
+# four hours 14400000
+
