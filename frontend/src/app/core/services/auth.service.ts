@@ -42,9 +42,7 @@ export class AuthService {
       localStorage.setItem('user', JSON.stringify(user) );
       this.user = user;
     }
-
-    console.log("TCL: AuthService -> saveStorage ->  this.user",  this.user)
-
+    console.log("TCL: AuthService -> saveStorage ->  this.user", this.user);
   }
 
   isLogged() {
@@ -56,7 +54,6 @@ export class AuthService {
     if (localStorage.getItem("token")) {
       this.token = (localStorage.getItem("token")!);
       this.user = JSON.parse(localStorage.getItem('user')!);
-      console.log("TCL: AuthService -> loadStorage ->  this.user",  this.user)
       return;
     } else {
       this.token = '';
@@ -65,8 +62,14 @@ export class AuthService {
   }
 
   getUserLocalStorage() {
-    if (localStorage.getItem("token")) {
+  if (localStorage.getItem("token")) {
       return JSON.parse(localStorage.getItem('user')!);
+    }
+  }
+
+  getTokenSession() {
+    if (localStorage.getItem("token")) {
+      return localStorage.getItem('token');
     }
     return null;
   }

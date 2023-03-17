@@ -4,7 +4,7 @@
     </div>
     <div>
         <div>
-            <form [formGroup]="form" (change)="formChanged()">
+              <form [formGroup]="form" (change)="formChanged()" (ngSubmit)="add()">
                 <mat-grid-list cols="2" [cols]="breakpoint" rowHeight="85px" (window:resize)="onResize($event)">
                     <mat-grid-tile>
                         <div class="text-inside">

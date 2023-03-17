@@ -9,12 +9,12 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class AppHeaderComponent implements OnInit{
 
-  user: User;
+  user: any;
   constructor(public authService: AuthService) { }
 
   ngOnInit() {
     this.user = this.authService.getUserLocalStorage();
-    console.log("TCL: AppHeaderComponent -> ngOnInit -> this.user", this.user)
+    console.log("TCL: AppHeaderComponent -> ngOnInit -> this.user", this.user);
   }
 
 }

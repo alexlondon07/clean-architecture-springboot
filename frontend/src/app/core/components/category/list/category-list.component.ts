@@ -101,15 +101,16 @@ export class CategoryListComponent implements AfterViewInit {
     });
   }
 
-  deactivateCategory(category: Category) {
-    this.service.enable(category.id, !category.enable).subscribe(
-      (data) => {
-        console.log(data)
-      },
-      (error) => {
-        console.log(error.error.message);
-      }
-    );
+  enable(category: Category) {
+      this.service.enable(category.id, !category.enable).subscribe({
+        complete: () => console.info('complete') ,
+        error: err => {
+          console.log(err.error.message);
+        },
+        next: resp => {
+          console.log(resp)
+        },
+      });
   }
 
   manageResponsePages(data: any) {

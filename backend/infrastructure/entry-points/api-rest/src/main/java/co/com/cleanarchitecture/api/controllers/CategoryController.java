@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +37,7 @@ import technicalogs.gateways.LoggerRepository;
 
 @RestController
 @RequestMapping(value = "/api/v1/categories", produces = MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin(origins = "http://localhost:4200")
 @AllArgsConstructor
 public class CategoryController {
 
@@ -43,6 +45,7 @@ public class CategoryController {
     private final LoggerRepository logger;
 
     @PostMapping
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> save(@Valid @RequestBody CategoryDTO categoryDto,
                                   BindingResult bindingResult) {
         logger.info("Saving category ----->" + categoryDto.toBuilder().toString());
@@ -56,6 +59,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> update(@Valid @RequestBody CategoryDTO categoryDto,
                                     BindingResult bindingResult,
                                     @PathVariable Long id) {
@@ -90,6 +94,7 @@ public class CategoryController {
     }
 
     @GetMapping("/page/{page}/{size}")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<Page<Category>> getAllPageable(@PathVariable Integer page, @PathVariable Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         List<Category> categoryList = beanCategoryUseCase.getCategories();
