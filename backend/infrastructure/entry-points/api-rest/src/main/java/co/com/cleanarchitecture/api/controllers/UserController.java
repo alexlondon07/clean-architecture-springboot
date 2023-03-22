@@ -2,7 +2,6 @@ package co.com.cleanarchitecture.api.controllers;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.com.cleanarchitecture.api.dto.MessageResponse;
 import co.com.cleanarchitecture.model.user.User;
 import co.com.cleanarchitecture.usecase.user.UserUseCase;
 import io.jsonwebtoken.Jwts;
@@ -27,28 +25,33 @@ import technicalogs.gateways.LoggerRepository;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping(value = "/api/user", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/user", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 public class UserController {
 
     private final UserUseCase userUseCase;
     private final LoggerRepository logger;
 
-    @GetMapping({"/{username}"})
+    @GetMapping
     @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<?> getUserByUsername(@PathVariable("username") String username) {
-
-        User user = userUseCase.findByUsername(username);
-
-        if (Objects.isNull(user)) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Username not found!"));
-        }
-
-        user.setPassword(null);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    public ResponseEntity<List<User>> getAll() {
+        return new ResponseEntity<>(userUseCase.getUsersAll(), HttpStatus.OK);
     }
+
+    @GetMapping({"/{id}"})
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    public ResponseEntity<User> show(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(userUseCase.findUserById(id), HttpStatus.OK);
+    }
+
+    /*@GetMapping("/page/{page}/{size}")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    public ResponseEntity<Page<Category>> getAllPageable(@PathVariable Integer page, @PathVariable Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        List<Category> categoryList = beanCategoryUseCase.getCategories();
+        Page<Category> pages = new PageImpl<>(categoryList, pageable, categoryList.size());
+        return new ResponseEntity<>(pages, HttpStatus.OK);
+    }*/
 
     private String getJWTToken(String username) {
         String secretKey = "mySecretKey";

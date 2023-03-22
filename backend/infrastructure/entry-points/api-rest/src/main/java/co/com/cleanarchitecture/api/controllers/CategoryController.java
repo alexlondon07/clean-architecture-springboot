@@ -117,7 +117,6 @@ public class CategoryController {
         beanCategoryUseCase.enable(id, enable);
     }
 
-
     private void validateIfExistCategoryById(Long id) {
         if (Objects.isNull(id)) {
             throw new MissingDataException();

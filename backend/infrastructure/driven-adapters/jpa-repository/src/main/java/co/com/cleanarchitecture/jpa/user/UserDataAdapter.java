@@ -1,5 +1,5 @@
 package co.com.cleanarchitecture.jpa.user;
-
+import java.util.List;
 
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -16,6 +16,11 @@ public class UserDataAdapter extends AdapterOperations<User, UserData, Long, Use
 
     public UserDataAdapter(UserDataRepository repository, ObjectMapper mapper) {
         super(repository, mapper, d -> mapper.map(d, User.class));
+    }
+
+    @Override
+    public List<User> getAll() {
+        return  UserData.convertUserDataLstToUserList((List<UserData>) repository.findAll());
     }
 
     @Transactional(propagation = Propagation.REQUIRED)

@@ -1,7 +1,9 @@
 package co.com.cleanarchitecture.jpa.user;
 
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -22,12 +24,14 @@ import javax.validation.constraints.Size;
 import co.com.cleanarchitecture.jpa.role.RoleData;
 import co.com.cleanarchitecture.model.role.Role;
 import co.com.cleanarchitecture.model.user.User;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "users",
@@ -45,6 +49,11 @@ public class UserData {
     private String username;
 
     @NotBlank
+    @Size(max = 50)
+    @Email
+    private String email;
+
+    @NotBlank
     @Size(max = 60)
     private String name;
 
@@ -56,11 +65,6 @@ public class UserData {
     private boolean enable = true;
 
     @NotBlank
-    @Size(max = 50)
-    @Email
-    private String email;
-
-    @NotBlank
     @Size(max = 120)
     private String password;
 
@@ -69,7 +73,6 @@ public class UserData {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleData> roles = new HashSet<>();
-
 
     public static User getUserFromUserData(UserData userData) {
 
@@ -87,5 +90,17 @@ public class UserData {
                 .enable(userData.isEnable())
                 .roles(roles)
                 .build();
+    }
+
+    public static List<User> convertUserDataLstToUserList(List<UserData> userDataList) {
+
+        if (userDataList.isEmpty())
+            return new ArrayList<>();
+
+        List<User> userList = new ArrayList<>();
+
+        userDataList.forEach( userData-> userList.add(getUserFromUserData(userData)));
+
+        return userList;
     }
 }
