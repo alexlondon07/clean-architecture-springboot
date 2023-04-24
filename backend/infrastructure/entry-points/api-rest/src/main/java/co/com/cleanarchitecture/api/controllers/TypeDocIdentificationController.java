@@ -1,4 +1,4 @@
-package co.com.cleanarchitecture.api;
+package co.com.cleanarchitecture.api.controllers;
 
 import java.util.List;
 import java.util.Objects;
@@ -13,29 +13,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.com.cleanarchitecture.api.exceptions.MissingDataException;
 import co.com.cleanarchitecture.api.exceptions.ResourceNotFoundException;
-import co.com.cleanarchitecture.model.category.Category;
 import co.com.cleanarchitecture.model.typeidentification.TypeDocIdentification;
 import co.com.cleanarchitecture.usecase.typedocidentification.TypeDocIdentificationUseCase;
 import lombok.AllArgsConstructor;
 import technicalogs.gateways.LoggerRepository;
 
 @RestController
-@RequestMapping(value = "/v1/api/type-identifications", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/type-identifications", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
-public class TypeDocIdentificationApiRest {
+public class TypeDocIdentificationController {
 
     private final TypeDocIdentificationUseCase typeDocIdentificationUseCase;
     private final LoggerRepository logger;
 
     @GetMapping
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<List<TypeDocIdentification>> getAll() {
         List<TypeDocIdentification> typeDocIdentificationList = typeDocIdentificationUseCase
                 .getTypeDocIdentifications();
         return new ResponseEntity<>(typeDocIdentificationList, HttpStatus.OK);
     }
 
     @GetMapping({"/{id}"})
-    public ResponseEntity<?> show(@PathVariable("id") Long id) {
+    public ResponseEntity<TypeDocIdentification> show(@PathVariable("id") Long id) {
         validateIfExistTypeDocIdentificationById(id);
         return new ResponseEntity<>(
                 typeDocIdentificationUseCase.getById(id), HttpStatus.OK);

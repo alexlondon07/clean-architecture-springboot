@@ -24,11 +24,17 @@
                     <td mat-cell *matCellDef="let element"> {{element.groupName}} </td>
                 </ng-container>
 
+                <!-- code Column -->
+                <ng-container matColumnDef="code">
+                    <th mat-header-cell *matHeaderCellDef> Código </th>
+                    <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+                </ng-container>
+
                 <!-- enable Column -->
                 <ng-container matColumnDef="enable">
                     <th mat-header-cell *matHeaderCellDef> Habilitado </th>
                     <td mat-cell *matCellDef="let element">
-                        <mat-slide-toggle #slidetoggle (click)="deactivateCategory(element)" [checked]="element.enable">
+                        <mat-slide-toggle #slidetoggle (click)="enable(element)" [checked]="element.enable">
                         </mat-slide-toggle>
                     </td>
                 </ng-container>

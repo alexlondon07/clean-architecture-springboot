@@ -1,8 +1,10 @@
 import { Routes } from '@angular/router';
 
 import { FullComponent } from './layouts/full/full.component';
+import { LoginComponent } from './core/components/login/login.component';
 
 export const AppRoutes: Routes = [
+  { path: 'login', component: LoginComponent },
   {
     path: '',
     component: FullComponent,
@@ -24,7 +26,7 @@ export const AppRoutes: Routes = [
       {
         path: '',
         loadChildren: () => import('./core/core.module').then(m => m.CoreModule)
-      }
+      },
     ]
   }
 ];

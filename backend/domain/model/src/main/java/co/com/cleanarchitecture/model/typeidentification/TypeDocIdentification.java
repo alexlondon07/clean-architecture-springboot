@@ -12,12 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 public class TypeDocIdentification {
-
     private Long id;
-
     private String abbreviation;
-
     public Date createdAt;
-
     private Date updatedAt;
 }

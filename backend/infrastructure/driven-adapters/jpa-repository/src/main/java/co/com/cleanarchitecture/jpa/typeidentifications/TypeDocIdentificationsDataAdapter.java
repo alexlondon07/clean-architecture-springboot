@@ -2,7 +2,6 @@ package co.com.cleanarchitecture.jpa.typeidentifications;
 
 
 import java.util.List;
-import java.util.function.Function;
 
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.data.domain.Page;

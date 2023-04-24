@@ -4,12 +4,12 @@
     </div>
     <div>
         <div>
-            <form [formGroup]="form" (change)="formChanged()">
+              <form [formGroup]="form" (change)="formChanged()" (ngSubmit)="add()">
                 <mat-grid-list cols="2" [cols]="breakpoint" rowHeight="85px" (window:resize)="onResize($event)">
                     <mat-grid-tile>
                         <div class="text-inside">
                             <mat-form-field>
-                                <input matInput placeholder="Nombre" value={{fname}} formControlName="name" required>
+                                <input matInput placeholder="Nombre" formControlName="name" required>
                                 <mat-error *ngIf="form.controls.name.hasError('required')">
                                     El campo nombre es requerido
                                 </mat-error>

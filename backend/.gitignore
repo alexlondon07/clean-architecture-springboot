@@ -254,7 +254,7 @@ Temporary Items
 # *.sublime-project
 
 # SFTP configuration file
-sftp-config.json
+sftp-co.com.cleanarchitecture.api.config.json
 
 # Package control specific files
 Package Control.last-run
@@ -293,7 +293,7 @@ ehthumbs_vista.db
 # Dump file
 *.stackdump
 
-# Folder config file
+# Folder co.com.cleanarchitecture.api.config file
 [Dd]esktop.ini
 
 # Recycle Bin used on file shares
@@ -313,7 +313,7 @@ $RECYCLE.BIN/
 .gradle
 build/
 
-# Ignore Gradle GUI config
+# Ignore Gradle GUI co.com.cleanarchitecture.api.config
 gradle-app.setting
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)

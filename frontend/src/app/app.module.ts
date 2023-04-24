@@ -2,9 +2,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { LocationStrategy, PathLocationStrategy, CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
 
@@ -20,8 +20,11 @@ import { SpinnerComponent } from './shared/spinner.component';
 import {  HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingComponent } from './core/shared/loading/loading.component';
 import { SpinnerInterceptorService } from './core/services/shared/spinner-interceptor.service';
+import { LoginComponent } from './core/components/login/login.component';
+import { Login } from './core/models/login';
+import { LoginGuard } from './core/guards/login-guard';
+import { AuthService } from './core/services/auth.service';
 
-import { CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +33,7 @@ import { CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
     SpinnerComponent,
     AppSidebarComponent,
     LoadingComponent,
+    LoginComponent,
   ],
   entryComponents: [ LoadingComponent ],
   imports: [
@@ -37,12 +41,15 @@ import { CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
     BrowserAnimationsModule,
     DemoMaterialModule,
     FormsModule,
+    ReactiveFormsModule,
     FlexLayoutModule,
     HttpClientModule,
     SharedModule,
     RouterModule.forRoot(AppRoutes)
   ],
   providers: [
+  AuthService,
+  LoginGuard,
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptorService, multi: true },
     {
       provide: LocationStrategy,

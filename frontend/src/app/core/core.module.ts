@@ -10,10 +10,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 // Components
 import { CoreRoutes } from './core.routing';
 import { DemoMaterialModule } from '../demo-material-module';
+import { CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
+
+// Components
 import { BrandListComponent } from './components/brand/brand-list/brand-list.component';
 import { CategoryListComponent } from './components/category/list/category-list.component';
 import { CategoryFormComponent } from './components/category/create-edit/category-form.component';
-import { CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 
 @NgModule({
   imports: [
@@ -31,7 +33,7 @@ import { CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
   declarations: [
     BrandListComponent,
     CategoryListComponent,
-    CategoryFormComponent
+    CategoryFormComponent,
   ]
 })
 export class CoreModule { }
