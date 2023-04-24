@@ -1,6 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, Optional } from "@angular/core";
 import { Validators, FormBuilder, FormGroup } from "@angular/forms";
-import { MatDialog } from "@angular/material/dialog";
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+} from "@angular/material/dialog";
 import { CategoryService } from "src/app/core/services/category.service";
 
 @Component({
@@ -19,7 +23,8 @@ export class CategoryFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
-    private service: CategoryService
+    private service: CategoryService,
+    public dialogRef: MatDialogRef<CategoryFormComponent>
   ) {}
 
   public ngOnInit(): void {
@@ -35,7 +40,7 @@ export class CategoryFormComponent implements OnInit {
         null,
         [Validators.required, Validators.pattern("[a-zA-Z]+([a-zA-Z ]+)*")],
       ],
-      code: [null, [Validators.required]],
+      code: ["1234567", [Validators.required]],
       groupName: [null, [Validators.required]],
       enable: [true, [Validators.required]],
     });
@@ -84,8 +89,11 @@ export class CategoryFormComponent implements OnInit {
           console.log(err.error.message);
         },
         next: (resp) => {
-          console.log(resp);
-          this.resetForm();
+          this.dialogRef.close({
+            event: "close",
+            data: this.form.value,
+            response: resp,
+          });
         },
       });
     }

@@ -1,24 +1,26 @@
 package co.com.cleanarchitecture.jpa.helper;
 
-import org.reactivecommons.utils.ObjectMapper;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.repository.query.QueryByExampleExecutor;
+import static java.util.stream.StreamSupport.stream;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static java.util.stream.StreamSupport.stream;
+import org.reactivecommons.utils.ObjectMapper;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.QueryByExampleExecutor;
 
 public abstract class AdapterOperations<E, D, I, R extends PagingAndSortingRepository<D, I> & QueryByExampleExecutor<D>> {
     protected R repository;
-    private Class<D> dataClass;
+    private final Class<D> dataClass;
     protected ObjectMapper mapper;
-    private Function<D, E> toEntityFn;
+    private final Function<D, E> toEntityFn;
 
     public AdapterOperations(R repository, ObjectMapper mapper, Function<D, E> toEntityFn) {
         this.repository = repository;
@@ -63,15 +65,26 @@ public abstract class AdapterOperations<E, D, I, R extends PagingAndSortingRepos
     }
 
     public List<E> findByExample(E entity) {
-        return toList(repository.findAll( Example.of(toData(entity))));
+        return toList(repository.findAll(Example.of(toData(entity))));
     }
 
-
-    public List<E> findAll(){
+    public List<E> findAll() {
         return toList(repository.findAll());
     }
 
-    public Page<E> findAllPageable(Pageable pageable){
+    public List<E> findAllByOrderByField(String order, String field) {
+        if (order.equalsIgnoreCase("ASC")) {
+            return toList(repository.findAll(Sort.by(Sort.Direction.ASC, field)));
+        }
+        return toList(repository.findAll(Sort.by(Sort.Direction.DESC, field)));
+    }
+
+    public Page<E> findAllPageable(Pageable pageable) {
         return (Page<E>) repository.findAll(pageable);
     }
+
+    public Page<E> findAllPageableOrderByIdDesc(Pageable pageable) {
+        return (Page<E>) repository.findAll(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "id")));
+    }
+
 }

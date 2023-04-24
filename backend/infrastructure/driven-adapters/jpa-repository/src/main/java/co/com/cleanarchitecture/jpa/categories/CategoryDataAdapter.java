@@ -21,13 +21,11 @@ public class CategoryDataAdapter extends AdapterOperations< Category, CategoryDa
      *  Or using mapper.map with the class of the object model
      */
         super(repository, mapper, d -> mapper.map(d, Category.class));
-
-
     }
 
     @Override
     public Page<Category> findAllPageable(Pageable pageable) {
-        return super.findAllPageable(pageable);
+        return super.findAllPageableOrderByIdDesc(pageable);
     }
 
     @Override
@@ -37,7 +35,7 @@ public class CategoryDataAdapter extends AdapterOperations< Category, CategoryDa
 
     @Override
     public List<Category> getAll() {
-        return super.findAll();
+        return super.findAllByOrderByField("desc", "id");
     }
 
     @Override

@@ -31,7 +31,6 @@ import co.com.cleanarchitecture.api.exceptions.ResourceNotFoundException;
 import co.com.cleanarchitecture.api.util.Utility;
 import co.com.cleanarchitecture.model.category.Category;
 import co.com.cleanarchitecture.usecase.category.CategoryUseCase;
-import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import technicalogs.gateways.LoggerRepository;
 
@@ -78,7 +77,6 @@ public class CategoryController {
                         categoryDto.convertToEntity(categoryDto)));
     }
 
-    @ApiOperation(value = "Get Category list ", response = Iterable.class, tags = "getAll")
     @GetMapping
     @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<List<Category>> getAll() {

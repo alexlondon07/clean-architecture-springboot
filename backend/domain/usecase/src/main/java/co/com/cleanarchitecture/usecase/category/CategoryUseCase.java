@@ -1,6 +1,5 @@
 package co.com.cleanarchitecture.usecase.category;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,7 +36,7 @@ public class CategoryUseCase {
     }
 
     public List<Category> getCategories() {
-        List<Category> list = new ArrayList<>();
+        List<Category> list;
         try {
             list = repository.getAll();
             logger.info("Getting categories list");
@@ -47,7 +46,6 @@ public class CategoryUseCase {
         }
         return list;
     }
-
 
     public Category getById(Long id){
         return repository.findById(id);
