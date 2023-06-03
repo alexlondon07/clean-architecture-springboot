@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
-  OnInit,
   ViewChild,
 } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
@@ -12,21 +11,23 @@ import { MatDialog } from "@angular/material/dialog";
 import { Category } from "../../../models/category";
 import { CategoryService } from "src/app/core/services/category.service";
 import { CategoryFormComponent } from "../create-edit/category-form.component";
+import { DeleteDialogComponent } from "src/app/core/shared/dialogs/delete-dialog/delete-dialog.component";
+import { MessageApp } from "src/app/utils/messages";
 @Component({
   selector: "app-category-list",
   templateUrl: "./category-list.component.html",
   styleUrls: ["./category-list.component.css"],
 })
 export class CategoryListComponent implements AfterViewInit {
-  title: string = "Categorias";
-  description: string = "Listado de categorias registradas en el sistema";
+  title: string = "Categorías";
+  description: string = "Listado de categorías registradas en el sistema";
 
   dataList: Category[] = [];
   totalElements: number = 0;
   pageIndex: number = 0;
   pageSize: number = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
-  displayedColumns: string[] = ["id", "name", "groupName", "code", "enable"];
+  displayedColumns: string[] = ["id", "name", "groupName", "enable", "icons"];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -42,45 +43,10 @@ export class CategoryListComponent implements AfterViewInit {
   }
 
   init() {
-    this.getDataPage(this.pageIndex.toString(), this.pageSize.toString());
+    this.initDataPages();
   }
 
-  openDialog(): void {
-    const dialogRef = this._dialog.open(CategoryFormComponent, {
-      width: "640px",
-      disableClose: true,
-    });
-    dialogRef.afterClosed().subscribe((data) => {
-      if (data) {
-        if (data["event"] == "close") {
-          this.init();
-        }
-        console.log("TCL: CategoryListComponent -> data", data);
-      }
-    });
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.getDataPageWithText(
-      this.pageIndex.toString(),
-      this.pageSize.toString(),
-      filterValue.trim().toLowerCase().toString()
-    );
-  }
-
-  detectChanges() {
-    this.changeDetectorRefs.detectChanges();
-  }
-
-  nextPage(event: PageEvent) {
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
+  private initDataPages() {
     this.getDataPage(this.pageIndex.toString(), this.pageSize.toString());
   }
 
@@ -120,6 +86,68 @@ export class CategoryListComponent implements AfterViewInit {
     });
   }
 
+  delete(id: number) {
+    const dialogRef = this._dialog.open(DeleteDialogComponent, {
+      data: MessageApp.GENERIC_CONFIRMATION_MESSAGE_DELETE,
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.service.delete(id).subscribe({
+          complete: () => console.info("complete"),
+          error: (err) => {
+            console.log(err.error.message);
+          },
+          next: (resp) => {
+            this.initDataPages();
+          },
+        });
+      }
+    });
+  }
+
+  openDialog(category: any): void {
+    const dialogRef = this._dialog.open(CategoryFormComponent, {
+      width: "640px",
+      disableClose: true,
+      data: category,
+    });
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data) {
+        if (data["event"] == "close") {
+          this.init();
+        }
+        console.log("TCL: CategoryListComponent -> data", data);
+      }
+    });
+  }
+  create(): void {
+    this.openDialog(null);
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.getDataPageWithText(
+      this.pageIndex.toString(),
+      this.pageSize.toString(),
+      filterValue.trim().toLowerCase().toString()
+    );
+  }
+
+  detectChanges() {
+    this.changeDetectorRefs.detectChanges();
+  }
+
+  nextPage(event: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.getDataPage(this.pageIndex.toString(), this.pageSize.toString());
+  }
   manageResponsePages(data: any) {
     this.dataSource = new MatTableDataSource(data["content"]);
     this.dataList = data["content"];

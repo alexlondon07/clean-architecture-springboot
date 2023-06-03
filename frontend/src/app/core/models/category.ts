@@ -1,7 +1,6 @@
-export interface Category {
+export class Category {
   id: number;
   name: string;
-  code: string;
   groupName: string;
   enable: boolean;
 }

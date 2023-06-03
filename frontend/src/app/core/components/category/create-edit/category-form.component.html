@@ -4,7 +4,7 @@
     </div>
     <div>
         <div>
-              <form [formGroup]="form" (change)="formChanged()" (ngSubmit)="add()">
+              <form [formGroup]="form" (change)="formChanged()" (ngSubmit)="onSubmit()">
                 <mat-grid-list cols="2" [cols]="breakpoint" rowHeight="85px" (window:resize)="onResize($event)">
                     <mat-grid-tile>
                         <div class="text-inside">
@@ -16,18 +16,11 @@
                                 <mat-error *ngIf="form.controls.name.hasError('pattern')">
                                     Por favor, introduzca un nombre válido
                                 </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside">
-                            <mat-form-field>
-                                <input matInput placeholder="Código" formControlName="code" required>
-                                <mat-error *ngIf="form.controls.code.hasError('required')">
-                                    El campo código es requerido
+                                <mat-error *ngIf="form.controls.name.hasError('minlength')">
+                                    El nombre debe tener al menos 3 caracteres.
                                 </mat-error>
-                                <mat-error *ngIf="form.controls.code.hasError('pattern')">
-                                    Por favor, introduzca un nombre válido
+                                <mat-error *ngIf="form.controls.name.hasError('maxlength')">
+                                    El nombre puede tener un máximo de 80 caracteres.
                                 </mat-error>
                             </mat-form-field>
                         </div>
@@ -58,7 +51,7 @@
                 </mat-grid-list>
 
                 <div class="btn-sec">
-                    <button mat-raised-button [disabled]="!form.valid" type="submit" color="primary" class="Update-btn">Guardar</button>
+                    <button mat-raised-button [disabled]="!form.valid" type="submit" color="primary" class="Update-btn">{{ titleButton }}</button>
                     <button mat-raised-button type="button" class="Discard-btn" (click)="openDialog()">Cancelar</button>
                 </div>
 

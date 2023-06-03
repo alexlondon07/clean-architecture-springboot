@@ -5,6 +5,7 @@ import {
   MAT_DIALOG_DATA,
   MatDialogRef,
 } from "@angular/material/dialog";
+import { Category } from "src/app/core/models/category";
 import { CategoryService } from "src/app/core/services/category.service";
 
 @Component({
@@ -14,18 +15,28 @@ import { CategoryService } from "src/app/core/services/category.service";
 })
 export class CategoryFormComponent implements OnInit {
   public titleForm: string = "Agregar categoría";
+  public titleButton: string = "Crear";
   public breakpoint: number; // Breakpoint observer code
   public form: FormGroup;
   wasFormChanged = false;
+  category: Category = new Category();
 
-  groupList: string[] = ["", "Account", "Accruals", "AcctImport"];
+  groupList: string[] = ["", "General", "Otro"];
 
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
     private service: CategoryService,
-    public dialogRef: MatDialogRef<CategoryFormComponent>
-  ) {}
+    public dialogRef: MatDialogRef<CategoryFormComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    this.category = data;
+
+    if (this.category?.id > 0) {
+      this.titleButton = "Actualizar";
+      this.titleForm = "Editar categoría";
+    }
+  }
 
   public ngOnInit(): void {
     this.createFormBuilder();
@@ -35,14 +46,21 @@ export class CategoryFormComponent implements OnInit {
 
   createFormBuilder(): void {
     this.form = this.fb.group({
-      id: null,
+      id: this.category?.id,
       name: [
-        null,
-        [Validators.required, Validators.pattern("[a-zA-Z]+([a-zA-Z ]+)*")],
+        this.category?.name,
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(80),
+          Validators.pattern("[a-zA-Z]+([a-zA-Z ]+)*"),
+        ],
       ],
-      code: ["1234567", [Validators.required]],
-      groupName: [null, [Validators.required]],
-      enable: [true, [Validators.required]],
+      groupName: [this.category?.groupName, [Validators.required]],
+      enable: [
+        this.category?.enable ? this.category?.enable : true,
+        [Validators.required],
+      ],
     });
 
     this.onCreateGroupFormValueChange();
@@ -81,25 +99,54 @@ export class CategoryFormComponent implements OnInit {
     this.form.reset();
   }
 
-  add() {
-    if (this.validateForm()) {
-      this.service.create(this.form.value).subscribe({
-        complete: () => console.info("complete"),
-        error: (err) => {
-          console.log(err.error.message);
-        },
-        next: (resp) => {
-          this.dialogRef.close({
-            event: "close",
-            data: this.form.value,
-            response: resp,
-          });
-        },
-      });
-    }
+  onSubmit() {
+    this.validateForm();
   }
 
-  validateForm(): boolean {
-    return this.form.valid;
+  add() {
+    this.service.create(this.form.value).subscribe({
+      complete: () => console.info("complete"),
+      error: (err) => {
+        console.log(err.error.message);
+      },
+      next: (resp) => {
+        this.closeDialogRef(resp);
+      },
+    });
+  }
+
+  update() {
+    this.service.update(this.form.value).subscribe({
+      complete: () => console.info("complete"),
+      error: (err) => {
+        alert("oe error");
+        console.log(err.error.message);
+      },
+      next: (resp) => {
+        alert("oe next");
+        this.closeDialogRef(resp);
+      },
+    });
+  }
+
+  validateForm(): void {
+    if (!this.form.valid) {
+      return;
+    }
+
+    if (this.form.controls.id.value > 0) {
+      this.update();
+      return;
+    }
+
+    this.add();
+  }
+
+  private closeDialogRef(resp: Category) {
+    this.dialogRef.close({
+      event: "close",
+      data: this.form.value,
+      response: resp,
+    });
   }
 }

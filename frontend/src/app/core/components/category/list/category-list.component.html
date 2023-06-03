@@ -1,54 +1,83 @@
 <mat-card>
-    <mat-card-content>
-        <mat-card-title>{{ title }}</mat-card-title>
-        <mat-card-subtitle>{{ description }} </mat-card-subtitle>
+  <mat-card-content>
+    <mat-card-title>{{ title }}</mat-card-title>
+    <mat-card-subtitle>{{ description }} </mat-card-subtitle>
 
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource">
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource">
+        <!-- id Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>Item.</th>
+          <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+        </ng-container>
 
-                <!-- id Column -->
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef> Item. </th>
-                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-                </ng-container>
+        <!-- name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
 
-                <!-- name Column -->
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef> Nombre </th>
-                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                </ng-container>
+        <!-- groupName Column -->
+        <ng-container matColumnDef="groupName">
+          <th mat-header-cell *matHeaderCellDef>Grupo</th>
+          <td mat-cell *matCellDef="let element">{{ element.groupName }}</td>
+        </ng-container>
 
-                <!-- groupName Column -->
-                <ng-container matColumnDef="groupName">
-                    <th mat-header-cell *matHeaderCellDef> Grupo </th>
-                    <td mat-cell *matCellDef="let element"> {{element.groupName}} </td>
-                </ng-container>
+        <!-- code Column -->
+        <ng-container matColumnDef="code">
+          <th mat-header-cell *matHeaderCellDef>Código</th>
+          <td mat-cell *matCellDef="let element">{{ element.code }}</td>
+        </ng-container>
 
-                <!-- code Column -->
-                <ng-container matColumnDef="code">
-                    <th mat-header-cell *matHeaderCellDef> Código </th>
-                    <td mat-cell *matCellDef="let element"> {{element.code}} </td>
-                </ng-container>
+        <!-- enable Column -->
+        <ng-container matColumnDef="enable">
+          <th mat-header-cell *matHeaderCellDef>Habilitado</th>
+          <td mat-cell *matCellDef="let element">
+            <mat-slide-toggle
+              #slidetoggle
+              (click)="enable(element)"
+              [checked]="element.enable"
+            >
+            </mat-slide-toggle>
+          </td>
+        </ng-container>
 
-                <!-- enable Column -->
-                <ng-container matColumnDef="enable">
-                    <th mat-header-cell *matHeaderCellDef> Habilitado </th>
-                    <td mat-cell *matCellDef="let element">
-                        <mat-slide-toggle #slidetoggle (click)="enable(element)" [checked]="element.enable">
-                        </mat-slide-toggle>
-                    </td>
-                </ng-container>
+        <ng-container matColumnDef="icons">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let row; let i = index">
+            <button mat-icon-button color="accent" (click)="openDialog(row)">
+              <mat-icon aria-label="Edit">edit</mat-icon>
+            </button>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
+            <button mat-icon-button color="accent" (click)="delete(row.id)">
+              <mat-icon aria-label="Delete">delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
 
-            <mat-paginator #paginator [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex" [pageSize]="pageSize" [length]="totalElements" (page)="nextPage($event)"> </mat-paginator>
-        </div>
-    </mat-card-content>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
 
-    <button class="mine" title="Nuevo registro" (click)="openDialog()" mat-fab color="primary">
-			<mat-icon>add</mat-icon>
-		</button>
+      <mat-paginator
+        #paginator
+        [pageSizeOptions]="pageSizeOptions"
+        [pageIndex]="pageIndex"
+        [pageSize]="pageSize"
+        [length]="totalElements"
+        (page)="nextPage($event)"
+      >
+      </mat-paginator>
+    </div>
+  </mat-card-content>
 
+  <button
+    class="mine"
+    title="Nuevo registro"
+    (click)="create()"
+    mat-fab
+    color="primary"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
 </mat-card>

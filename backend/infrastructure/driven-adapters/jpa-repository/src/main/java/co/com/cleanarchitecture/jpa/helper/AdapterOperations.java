@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotNull;
+
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -73,18 +75,21 @@ public abstract class AdapterOperations<E, D, I, R extends PagingAndSortingRepos
     }
 
     public List<E> findAllByOrderByField(String order, String field) {
-        if (order.equalsIgnoreCase("ASC")) {
+        if (order.equalsIgnoreCase(Sort.Direction.ASC.toString())) {
             return toList(repository.findAll(Sort.by(Sort.Direction.ASC, field)));
         }
         return toList(repository.findAll(Sort.by(Sort.Direction.DESC, field)));
     }
 
-    public Page<E> findAllPageable(Pageable pageable) {
+    public Page<E> findAllPageable(@NotNull Pageable pageable) {
         return (Page<E>) repository.findAll(pageable);
     }
 
-    public Page<E> findAllPageableOrderByIdDesc(Pageable pageable) {
-        return (Page<E>) repository.findAll(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "id")));
+    public Page<E> findAllPageableOrderByIdDesc(@NotNull Pageable pageable) {
+        return (Page<E>) repository.findAll(PageRequest.of(pageable.getPageNumber(),
+                pageable.getPageSize(),
+                Sort.by(Sort.Direction.DESC, "id"))
+        );
     }
 
 }
