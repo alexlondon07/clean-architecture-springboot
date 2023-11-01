@@ -40,8 +40,8 @@ import technicalogs.gateways.LoggerRepository;
 @AllArgsConstructor
 public class CategoryController {
 
-    private final CategoryUseCase beanCategoryUseCase;
-    private final LoggerRepository logger;
+    private CategoryUseCase beanCategoryUseCase;
+    private LoggerRepository logger;
 
     @PostMapping
     @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")

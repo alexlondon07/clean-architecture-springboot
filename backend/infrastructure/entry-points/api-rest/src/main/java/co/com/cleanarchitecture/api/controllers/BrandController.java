@@ -37,8 +37,8 @@ import technicalogs.gateways.LoggerRepository;
 @AllArgsConstructor
 public class BrandController {
 
-    private final BrandUseCase beanBrandUseCase;
-    private final LoggerRepository logger;
+    private BrandUseCase beanBrandUseCase;
+    private LoggerRepository logger;
 
     @PostMapping
     public ResponseEntity<?> save(@Valid @RequestBody BrandDTO data,

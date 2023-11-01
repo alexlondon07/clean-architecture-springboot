@@ -18,8 +18,6 @@ public class Utility {
         for (FieldError violation : ex.getFieldErrors()) {
             Map<String, String> transformedError = new HashMap<>();
             String fieldName = violation.getField();
-            /*transformedError.put("field", fieldName.substring(fieldName.lastIndexOf('.') + 1));
-            transformedError.put("error", violation.getDefaultMessage());*/
             transformedError.put("error", "El campo " +
                     fieldName.substring(fieldName.lastIndexOf('.') + 1) + " " +
                     violation.getDefaultMessage());

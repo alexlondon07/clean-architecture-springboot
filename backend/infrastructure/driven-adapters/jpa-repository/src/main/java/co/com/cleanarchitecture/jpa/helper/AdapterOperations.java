@@ -24,7 +24,7 @@ public abstract class AdapterOperations<E, D, I, R extends PagingAndSortingRepos
     protected ObjectMapper mapper;
     private final Function<D, E> toEntityFn;
 
-    public AdapterOperations(R repository, ObjectMapper mapper, Function<D, E> toEntityFn) {
+    protected AdapterOperations(R repository, ObjectMapper mapper, Function<D, E> toEntityFn) {
         this.repository = repository;
         this.mapper = mapper;
         ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();

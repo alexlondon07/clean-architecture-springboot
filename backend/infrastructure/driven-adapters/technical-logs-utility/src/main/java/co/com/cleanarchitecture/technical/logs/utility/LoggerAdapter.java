@@ -1,10 +1,11 @@
 package co.com.cleanarchitecture.technical.logs.utility;
 
-import com.google.gson.Gson;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
+
+import com.google.gson.Gson;
+
 import technicalogs.gateways.LoggerRepository;
 
 

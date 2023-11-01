@@ -35,15 +35,15 @@ public class TypeDocIdentificationUseCase {
   }
 
   public List<TypeDocIdentification> getTypeDocIdentifications() {
-    List<TypeDocIdentification> list;
+    List<TypeDocIdentification> typeDocIdentificationList;
     try {
-      list = repository.getAll();
+      typeDocIdentificationList = repository.getAll();
       logger.info("Getting TypeDocIdentification list");
     } catch (Exception ex) {
       logger.error("Error Getting TypeDocIdentification list -->", ex);
       return Collections.emptyList();
     }
-    return list;
+    return typeDocIdentificationList;
   }
 
   public TypeDocIdentification getById(Long id) {

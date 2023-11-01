@@ -1,6 +1,7 @@
 package co.com.cleanarchitecture.model.category;
 
 import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

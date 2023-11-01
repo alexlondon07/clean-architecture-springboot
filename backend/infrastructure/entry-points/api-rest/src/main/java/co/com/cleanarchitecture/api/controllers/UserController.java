@@ -50,7 +50,8 @@ public class UserController {
         Pageable pageable = PageRequest.of(page, size);
         List<Category> categoryList = beanCategoryUseCase.getCategories();
         Page<Category> pages = new PageImpl<>(categoryList, pageable, categoryList.size());
-        return new ResponseEntity<>(pages, HttpStatus.OK);
+        return new ResponseEntity<>(pages, HttpStatus.OK);{{{{
+
     }*/
 
     private String getJWTToken(String username) {

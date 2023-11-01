@@ -2,6 +2,7 @@ package co.com.cleanarchitecture.jpa.brand;
 
 
 import java.util.List;
+import java.util.Objects;
 
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -31,7 +32,10 @@ public class BrandDataAdapter extends AdapterOperations<
 
     @Override
     public void delete(Long id) {
-        repository.deleteById(id);
+        Brand brand = super.findById(id);
+        if(Objects.isNull(brand)) {
+            repository.deleteById(id);
+        }
     }
 
     @Override

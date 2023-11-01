@@ -2,14 +2,14 @@ package co.com.cleanarchitecture.jpa.categories;
 
 import java.util.List;
 
-import co.com.cleanarchitecture.jpa.helper.AdapterOperations;
-import co.com.cleanarchitecture.model.category.Category;
-import co.com.cleanarchitecture.model.category.gateways.CategoryRepository;
-
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+
+import co.com.cleanarchitecture.jpa.helper.AdapterOperations;
+import co.com.cleanarchitecture.model.category.Category;
+import co.com.cleanarchitecture.model.category.gateways.CategoryRepository;
 
 @Repository
 public class CategoryDataAdapter extends AdapterOperations< Category, CategoryData, Long,
