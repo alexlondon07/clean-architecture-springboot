@@ -12,7 +12,7 @@ import co.com.cleanarchitecture.model.role.gateways.RoleRepository;
 public class RoleDataAdapter extends AdapterOperations<Role, RoleData, Long, RoleDataRepository> implements RoleRepository {
 
         public RoleDataAdapter(RoleDataRepository repository, ObjectMapper mapper) {
-                super(repository, mapper, d -> mapper.map(d, Role.class));
+                super(repository, mapper, roleData -> mapper.map(roleData, Role.class));
         }
 
         @Override

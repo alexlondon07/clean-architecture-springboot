@@ -12,7 +12,8 @@ import co.com.cleanarchitecture.model.category.Category;
 import co.com.cleanarchitecture.model.category.gateways.CategoryRepository;
 
 @Repository
-public class CategoryDataAdapter extends AdapterOperations< Category, CategoryData, Long,
+public class CategoryDataAdapter extends AdapterOperations<
+        Category, CategoryData, Long,
         CategoryDataRepository> implements CategoryRepository {
 
     public CategoryDataAdapter(CategoryDataRepository repository, ObjectMapper mapper) {        /**
@@ -35,7 +36,7 @@ public class CategoryDataAdapter extends AdapterOperations< Category, CategoryDa
 
     @Override
     public List<Category> getAll() {
-        return super.findAllByOrderByField("desc", "id");
+        return super.findAll();
     }
 
     @Override

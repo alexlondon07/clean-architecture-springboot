@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,10 +38,11 @@ import technicalogs.gateways.LoggerRepository;
 @AllArgsConstructor
 public class BrandController {
 
-    private BrandUseCase beanBrandUseCase;
-    private LoggerRepository logger;
+    private final BrandUseCase beanBrandUseCase;
+    private final LoggerRepository logger;
 
     @PostMapping
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> save(@Valid @RequestBody BrandDTO data,
                                   BindingResult bindingResult) {
         logger.info("Saving ----->" + data.toBuilder().toString());
@@ -54,6 +56,7 @@ public class BrandController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> update(@Valid @RequestBody BrandDTO brandDTO,
                                     BindingResult bindingResult,
                                     @PathVariable Long id) {
@@ -73,12 +76,14 @@ public class BrandController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<List<Brand>> getAll() {
         List<Brand> brandList = beanBrandUseCase.getAll();
         return new ResponseEntity<>(brandList, HttpStatus.OK);
     }
 
     @GetMapping({"/{id}"})
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<Brand> show(@PathVariable("id") Long id) {
         validateIfExistBrandById(id);
         return new ResponseEntity<>(beanBrandUseCase.getById(id), HttpStatus.OK);
@@ -93,6 +98,7 @@ public class BrandController {
     }
 
     @DeleteMapping({"/{id}"})
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public void delete(@PathVariable("id") Long id) {
         validateIfExistBrandById(id);
         beanBrandUseCase.deleteById(id);

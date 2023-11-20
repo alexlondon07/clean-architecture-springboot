@@ -1,6 +1,5 @@
 package co.com.cleanarchitecture.usecase.user;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -16,15 +15,14 @@ public class UserUseCase {
     private final LoggerRepository logger;
 
     public List<User> getUsersAll() {
-        List<User> list = new ArrayList<>();
         try {
-            list = repository.getAll();
+            List<User> list = repository.getAll();
             logger.info("Getting users list");
+            return list;
         } catch (Exception ex) {
             logger.error("Error Getting users list -->", ex);
             return Collections.emptyList();
         }
-        return list;
     }
 
     public User findUserById(Long id) {

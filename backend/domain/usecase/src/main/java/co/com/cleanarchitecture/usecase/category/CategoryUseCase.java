@@ -36,15 +36,14 @@ public class CategoryUseCase {
     }
 
     public List<Category> getCategories() {
-        List<Category> list;
         try {
-            list = repository.getAll();
-            logger.info("Getting categories list");
+            List<Category> list = repository.getAll();
+            logger.info("Successfully retrieved categories list");
+            return list;
         } catch (Exception ex) {
-            logger.error("Error Getting categories list -->", ex);
+            logger.error("Error getting categories list", ex);
             return Collections.emptyList();
         }
-        return list;
     }
 
     public Category getById(Long id){

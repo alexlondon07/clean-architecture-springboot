@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.com.cleanarchitecture.api.dto.CategoryDTO;
 import co.com.cleanarchitecture.api.exceptions.MissingDataException;
 import co.com.cleanarchitecture.api.exceptions.ResourceNotFoundException;
+import co.com.cleanarchitecture.api.util.Constants;
 import co.com.cleanarchitecture.api.util.Utility;
 import co.com.cleanarchitecture.model.category.Category;
 import co.com.cleanarchitecture.usecase.category.CategoryUseCase;
@@ -35,13 +36,13 @@ import lombok.AllArgsConstructor;
 import technicalogs.gateways.LoggerRepository;
 
 @RestController
-@RequestMapping(value = "/api/v1/categories", produces = MediaType.APPLICATION_JSON_VALUE)
-@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping(value = Constants.API_VERSION_V1 + "categories", produces = MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin(origins = Constants.ORIGIN_FRONTEND)
 @AllArgsConstructor
 public class CategoryController {
 
-    private CategoryUseCase beanCategoryUseCase;
-    private LoggerRepository logger;
+    private final CategoryUseCase beanCategoryUseCase;
+    private final LoggerRepository logger;
 
     @PostMapping
     @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")

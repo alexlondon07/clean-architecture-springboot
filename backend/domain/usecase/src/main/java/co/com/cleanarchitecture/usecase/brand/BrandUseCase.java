@@ -1,6 +1,6 @@
 package co.com.cleanarchitecture.usecase.brand;
 
-import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class BrandUseCase {
             logger.info("Saving");
             return repository.saveBrand(data);
         } catch (Exception ex) {
-            logger.error("Error saving brand-->", ex);
+            logger.error("Error saving brand -->", ex);
             return null;
         }
     }
@@ -36,15 +36,14 @@ public class BrandUseCase {
     }
 
     public List<Brand> getAll() {
-        List<Brand> list = new ArrayList<>();
         try {
-            list = repository.getAll();
-            logger.info("Getting list");
+            List<Brand> list = repository.getAll();
+            logger.info("Successfully retrieved brands list");
+            return list;
         } catch (Exception ex) {
             logger.error("Error Getting brand list -->", ex);
             return Collections.emptyList();
         }
-        return list;
     }
 
     public Brand getById(Long id) {

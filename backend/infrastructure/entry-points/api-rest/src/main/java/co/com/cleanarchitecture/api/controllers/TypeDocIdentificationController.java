@@ -6,6 +6,7 @@ import java.util.Objects;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ public class TypeDocIdentificationController {
     private final LoggerRepository logger;
 
     @GetMapping
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<List<TypeDocIdentification>> getAll() {
         List<TypeDocIdentification> typeDocIdentificationList = typeDocIdentificationUseCase
                 .getTypeDocIdentifications();
@@ -34,6 +36,7 @@ public class TypeDocIdentificationController {
     }
 
     @GetMapping({"/{id}"})
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<TypeDocIdentification> show(@PathVariable("id") Long id) {
         validateIfExistTypeDocIdentificationById(id);
         return new ResponseEntity<>(
