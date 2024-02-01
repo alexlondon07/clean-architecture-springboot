@@ -7,6 +7,7 @@ import {
 } from "@angular/material/dialog";
 import { Category } from "src/app/core/models/category";
 import { CategoryService } from "src/app/core/services/category.service";
+import { MessageApp } from "src/app/utils/messages";
 
 @Component({
   selector: "app-category-form",
@@ -33,8 +34,8 @@ export class CategoryFormComponent implements OnInit {
     this.category = data;
 
     if (this.category?.id > 0) {
-      this.titleButton = "Actualizar";
-      this.titleForm = "Editar categoría";
+      this.titleButton = MessageApp.UPDATE;
+      this.titleForm = MessageApp.EDIT;
     }
   }
 
@@ -119,11 +120,9 @@ export class CategoryFormComponent implements OnInit {
     this.service.update(this.form.value).subscribe({
       complete: () => console.info("complete"),
       error: (err) => {
-        alert("oe error");
         console.log(err.error.message);
       },
       next: (resp) => {
-        alert("oe next");
         this.closeDialogRef(resp);
       },
     });

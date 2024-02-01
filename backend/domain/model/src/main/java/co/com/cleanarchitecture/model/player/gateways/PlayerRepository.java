@@ -1,6 +1,7 @@
 package co.com.cleanarchitecture.model.player.gateways;
 
 import java.util.List;
+import java.util.Optional;
 
 import co.com.cleanarchitecture.model.player.Player;
 
@@ -13,5 +14,7 @@ public interface PlayerRepository  {
     void delete(Long id);
 
     Player findById(Long id);
+
+    Optional<Player> findByCellphone(String cellphone);
 
 }

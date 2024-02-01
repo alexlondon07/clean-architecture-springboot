@@ -16,7 +16,7 @@ import lombok.Setter;
 public class Player implements Serializable {
     private Long id;
     private String name;
-    private String surname;
     private String position;
     private String cellphone;
+    private String photo;
 }

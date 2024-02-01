@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import co.com.cleanarchitecture.model.brand.Brand;
+import co.com.cleanarchitecture.model.player.Player;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,21 +17,29 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class BrandDTO implements Serializable {
+public class PlayerDTO implements Serializable {
 
     private Long id;
 
     @NotNull
-    @Size(min = 3, max = 90)
+    @Size(max = 100)
     private String name;
 
-    private boolean enable;
+    @NotNull
+    @Size(min = 3, max = 45)
+    private String position;
 
-    public Brand convertToEntity(BrandDTO data) {
-        return Brand.builder()
+    @NotNull
+    @Size(min = 3, max = 12)
+    private String cellphone;
+
+    public Player convertToEntity(PlayerDTO data) {
+        return Player.builder()
                 .id(id)
                 .name(data.getName().trim())
-                .enable(data.isEnable())
+                .cellphone(data.getCellphone().trim())
+                .position(data.getPosition())
                 .build();
     }
+
 }

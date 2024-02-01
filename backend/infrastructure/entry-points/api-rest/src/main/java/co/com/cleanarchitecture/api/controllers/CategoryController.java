@@ -45,7 +45,7 @@ public class CategoryController {
     private final LoggerRepository logger;
 
     @PostMapping
-    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize(Constants.ROLE_MODERADOR_AND_ADMIN)
     public ResponseEntity<?> save(@Valid @RequestBody CategoryDTO categoryDto,
                                   BindingResult bindingResult) {
         logger.info("Saving category ----->" + categoryDto.toBuilder().toString());
@@ -59,7 +59,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize(Constants.ROLE_MODERADOR_AND_ADMIN)
     public ResponseEntity<?> update(@Valid @RequestBody CategoryDTO categoryDto,
                                     BindingResult bindingResult,
                                     @PathVariable Long id) {
@@ -79,21 +79,21 @@ public class CategoryController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize(Constants.ROLE_MODERADOR_AND_ADMIN)
     public ResponseEntity<List<Category>> getAll() {
         List<Category> categoryList = beanCategoryUseCase.getCategories();
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
     }
 
     @GetMapping({"/{id}"})
-    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize(Constants.ROLE_MODERADOR_AND_ADMIN)
     public ResponseEntity<Category> show(@PathVariable("id") Long id) {
         validateIfExistCategoryById(id);
         return new ResponseEntity<>(beanCategoryUseCase.getById(id), HttpStatus.OK);
     }
 
     @GetMapping("/page/{page}/{size}")
-    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize(Constants.ROLE_MODERADOR_AND_ADMIN)
     public ResponseEntity<Page<Category>> getAllPageable(@PathVariable Integer page, @PathVariable Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         List<Category> categoryList = beanCategoryUseCase.getCategories();
@@ -102,14 +102,14 @@ public class CategoryController {
     }
 
     @DeleteMapping({"/{id}"})
-    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize(Constants.ROLE_MODERADOR_AND_ADMIN)
     public void delete(@PathVariable("id") Long id) {
         validateIfExistCategoryById(id);
         beanCategoryUseCase.deleteById(id);
     }
 
     @GetMapping({"/{id}/{enable}"})
-    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize(Constants.ROLE_MODERADOR_AND_ADMIN)
     public void enableCategory(@PathVariable("id") Long id,
                                @PathVariable("enable") Boolean enable) {
         validateIfExistCategoryById(id);
@@ -120,8 +120,7 @@ public class CategoryController {
         if (Objects.isNull(id)) {
             throw new MissingDataException();
         }
-        Category categoryBB = beanCategoryUseCase.getById(id);
-        if (Objects.isNull(categoryBB)) {
+        if (Objects.isNull(beanCategoryUseCase.getById(id))) {
             throw new ResourceNotFoundException();
         }
     }

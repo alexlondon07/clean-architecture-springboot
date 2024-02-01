@@ -25,16 +25,16 @@ public class PlayerData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 90, nullable = false)
+    @Column(length = 155, nullable = false)
     private String name;
 
-    @Column(length = 90)
-    private String surname;
-
-    @Column(length = 60, nullable = false)
+    @Column(length = 45, nullable = false)
     private String position;
 
-    @Column(length = 10, nullable = false)
+    @Column(length = 12, nullable = false, unique = true)
     private String cellphone;
+
+    @Column(length = 120)
+    private String photo;
 
 }
