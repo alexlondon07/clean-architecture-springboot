@@ -10,6 +10,8 @@ public interface CategoryRepository {
 
     List<Category> getAll();
 
+    List<Category> findByName(String name);
+
     void delete(Long id);
 
     Category findById(Long id);

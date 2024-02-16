@@ -106,7 +106,7 @@ export class CategoryFormComponent implements OnInit {
 
   add() {
     this.service.create(this.form.value).subscribe({
-      complete: () => console.info("complete"),
+      complete: () => console.info("complete add"),
       error: (err) => {
         console.log(err.error.message);
       },
@@ -118,7 +118,7 @@ export class CategoryFormComponent implements OnInit {
 
   update() {
     this.service.update(this.form.value).subscribe({
-      complete: () => console.info("complete"),
+      complete: () => console.info("complete update"),
       error: (err) => {
         console.log(err.error.message);
       },

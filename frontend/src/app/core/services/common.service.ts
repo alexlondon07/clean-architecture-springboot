@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { Observable } from "rxjs";
 import { Generic } from "../models/generic";
@@ -20,8 +20,8 @@ export abstract class CommonService<E extends Generic> {
 
   constructor(protected http: HttpClient, protected authService: AuthService) {}
 
-  public getAll(): Observable<E[]> {
-    return this.http.get<E[]>(`${environment.urlBackendSpringBoot}`, {
+  public getAll(): Observable<any> {
+    return this.http.get<E[]>(`${this.baseEnpoint}`, {
       headers: this.headers,
     });
   }

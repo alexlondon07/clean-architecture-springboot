@@ -1,6 +1,7 @@
 package co.com.cleanarchitecture.jpa.player;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -26,6 +27,11 @@ implements PlayerRepository {
     @Override
     public Player findById(Long id) {
         return super.findById(id);
+    }
+
+    @Override
+    public Optional<Player> findByCellphone(String cellphone) {
+        return Optional.empty();
     }
 
     @Override

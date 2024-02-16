@@ -37,11 +37,17 @@ public class CategoryUseCase {
 
     public List<Category> getCategories() {
         try {
-            List<Category> list = repository.getAll();
-            logger.info("Successfully retrieved categories list");
-            return list;
+            return repository.getAll();
         } catch (Exception ex) {
             logger.error("Error getting categories list", ex);
+            return Collections.emptyList();
+        }
+    }
+
+    public List<Category> getCategoriesByName(String name) {
+        try {
+            return repository.findByName(name);
+        } catch (Exception ex) {
             return Collections.emptyList();
         }
     }

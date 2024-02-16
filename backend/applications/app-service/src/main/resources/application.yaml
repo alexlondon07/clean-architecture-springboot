@@ -10,9 +10,13 @@ spring:
   datasource:
     url: "jdbc:mysql://localhost:3306/clean_architecture_db"
     username: "root"
-    password: "password"
+    password: "example_password"
     driverClassName: "com.mysql.cj.jdbc.Driver"
   jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
     hibernate:
       ddl-auto: update
     databasePlatform: "org.hibernate.dialect.MySQL5Dialect"
@@ -20,4 +24,6 @@ spring:
     jwtSecret: bezKoderSecretKey
     jwtExpirationMs: 7200000 # two hours
 # four hours 14400000
+
+
 

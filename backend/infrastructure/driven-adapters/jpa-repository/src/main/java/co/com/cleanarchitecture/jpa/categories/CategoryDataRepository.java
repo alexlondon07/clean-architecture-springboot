@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.repository.query.QueryByExampleExecutor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface CategoryDataRepository extends PagingAndSortingRepository<CategoryData, Long>,
         QueryByExampleExecutor<CategoryData> {
 
@@ -14,4 +16,6 @@ public interface CategoryDataRepository extends PagingAndSortingRepository<Categ
     @Modifying
     @Query("Update CategoryData c SET c.enable=:enable WHERE c.id=:id")
     void enable(@Param("id") Long id, @Param("enable") Boolean enable);
+    List<CategoryData> findByNameIsContainingIgnoreCase(String name);
+
 }

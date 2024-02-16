@@ -2,6 +2,9 @@ package co.com.cleanarchitecture.jpa.categories;
 
 import java.util.List;
 
+import co.com.cleanarchitecture.jpa.role.RoleDataRepository;
+import co.com.cleanarchitecture.jpa.user.UserData;
+import co.com.cleanarchitecture.model.role.Role;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +24,7 @@ public class CategoryDataAdapter extends AdapterOperations<
      *  super(repository, mapper, d -> mapper.mapBuilder(d,ObjectModel.ObjectModelBuilder.class).build());
      *  Or using mapper.map with the class of the object model
      */
-        super(repository, mapper, d -> mapper.map(d, Category.class));
+        super(repository, mapper, categoryData -> mapper.map(categoryData, Category.class));
     }
 
     @Override
@@ -37,6 +40,11 @@ public class CategoryDataAdapter extends AdapterOperations<
     @Override
     public List<Category> getAll() {
         return super.findAll();
+    }
+
+    @Override
+    public List<Category> findByName(String name) {
+        return  CategoryData.convertCategoryDataListToCategoryList(repository.findByNameIsContainingIgnoreCase(name));
     }
 
     @Override

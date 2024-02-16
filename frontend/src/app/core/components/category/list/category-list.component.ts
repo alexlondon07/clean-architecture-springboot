@@ -43,7 +43,24 @@ export class CategoryListComponent implements AfterViewInit {
   }
 
   init() {
-    this.initDataPages();
+    this.getAllCategories();
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  getAllCategories() {
+    this.service.getAll().subscribe({
+      complete: () => console.info("complete getAllCategories"),
+      error: (err) => {
+        console.log(err.error.message);
+      },
+      next: (response) => {
+        this.dataSource = new MatTableDataSource(response);
+      },
+    });
   }
 
   private initDataPages() {
@@ -52,7 +69,7 @@ export class CategoryListComponent implements AfterViewInit {
 
   getDataPage(page: string, size: string) {
     this.service.getAllPages(page, size).subscribe({
-      complete: () => console.info("complete"),
+      complete: () => console.info("complete getDataPage"),
       error: (err) => {
         console.log(err.error.message);
       },
@@ -63,6 +80,7 @@ export class CategoryListComponent implements AfterViewInit {
   }
 
   getDataPageWithText(page: string, size: string, text: string) {
+    console.log(text);
     this.service.getAllPagesWithText(page, size, text).subscribe({
       complete: () => console.info("complete"),
       error: (err) => {
@@ -76,7 +94,7 @@ export class CategoryListComponent implements AfterViewInit {
 
   enable(category: Category) {
     this.service.enable(category.id, !category.enable).subscribe({
-      complete: () => console.info("complete"),
+      complete: () => console.info("complete enable"),
       error: (err) => {
         console.log(err.error.message);
       },
@@ -99,7 +117,7 @@ export class CategoryListComponent implements AfterViewInit {
             console.log(err.error.message);
           },
           next: (resp) => {
-            this.initDataPages();
+            this.init();
           },
         });
       }
@@ -130,7 +148,7 @@ export class CategoryListComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  applyFilter(event: Event) {
+  applyFilter_V2(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.getDataPageWithText(
       this.pageIndex.toString(),

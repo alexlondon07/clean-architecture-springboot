@@ -101,6 +101,17 @@ public class CategoryController {
         return new ResponseEntity<>(pages, HttpStatus.OK);
     }
 
+    @GetMapping("/page/{page}/{size}/{text}")
+    @PreAuthorize(Constants.ROLE_MODERADOR_AND_ADMIN)
+    public ResponseEntity<Page<Category>> getAllPageableWithText(@PathVariable Integer page,
+                                                                @PathVariable Integer size,
+                                                                 @PathVariable String text) {
+        Pageable pageable = PageRequest.of(page, size);
+        List<Category> categoryList = beanCategoryUseCase.getCategoriesByName(text);
+        Page<Category> pages = new PageImpl<>(categoryList, pageable, categoryList.size());
+        return new ResponseEntity<>(pages, HttpStatus.OK);
+    }
+
     @DeleteMapping({"/{id}"})
     @PreAuthorize(Constants.ROLE_MODERADOR_AND_ADMIN)
     public void delete(@PathVariable("id") Long id) {
