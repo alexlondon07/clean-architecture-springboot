@@ -8,13 +8,15 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 })
 export class DeleteDialogComponent implements OnInit {
   message: string;
+  title: string = ' Are you sure?';
   ngOnInit() {}
 
   constructor(
     private dialogRef: MatDialogRef<DeleteDialogComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.message = data;
+    this.message = data['message'];
+    this.title = data['title'];
   }
 
   onNoClick(): void {

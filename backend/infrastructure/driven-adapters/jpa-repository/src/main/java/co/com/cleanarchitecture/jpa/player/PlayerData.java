@@ -8,6 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import co.com.cleanarchitecture.jpa.user.UserData;
+import co.com.cleanarchitecture.model.player.Player;
+import co.com.cleanarchitecture.model.user.User;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -37,4 +40,17 @@ public class PlayerData {
     @Column(length = 120)
     private String photo;
 
+    public static Player getPlayerFromPlayerData(PlayerData playerData) {
+
+        if (playerData==null)
+            return null;
+
+        return Player.builder()
+                .id(playerData.getId())
+                .name(playerData.getName())
+                .position(playerData.getPosition())
+                .cellphone(playerData.getCellphone())
+                .photo(playerData.getPhoto())
+                .build();
+    }
 }

@@ -1,5 +1,5 @@
 mat-form-field {
-    width: 90%;
+  width: 100%;
 }
 
 .btn-sec {
@@ -23,14 +23,11 @@ mat-form-field {
 }
 
 
-@media (max-width: 800px) {
-    .btn-sec {
-        margin-right: 1rem !important;
-    }
+.full-width {
+  width: 100%;
+  margin-bottom: 10px;
 }
 
-@media (max-width: 600px) {
-    .btn-sec {
-        margin-right: 1rem !important;
-    }
+.error-message {
+  font-size: 12px;
 }

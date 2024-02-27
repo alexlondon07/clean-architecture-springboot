@@ -17,6 +17,8 @@ import { BrandListComponent } from "./components/brand/brand-list/brand-list.com
 import { CategoryListComponent } from "./components/category/list/category-list.component";
 import { CategoryFormComponent } from "./components/category/create-edit/category-form.component";
 import { DeleteDialogComponent } from "./shared/dialogs/delete-dialog/delete-dialog.component";
+import { PlayerListComponent } from './components/player/list/player-list.component';
+import { PlayerFormComponent } from './components/player/create-edit/player-form.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -28,12 +30,14 @@ import { DeleteDialogComponent } from "./shared/dialogs/delete-dialog/delete-dia
     CdkTableModule,
     DemoMaterialModule,
   ],
-  entryComponents: [CategoryFormComponent, DeleteDialogComponent],
+  entryComponents: [CategoryFormComponent, PlayerFormComponent, DeleteDialogComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     BrandListComponent,
     CategoryListComponent,
+    PlayerListComponent,
     CategoryFormComponent,
+    PlayerFormComponent,
     DeleteDialogComponent,
   ],
 })

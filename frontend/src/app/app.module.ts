@@ -20,7 +20,6 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { LoadingComponent } from "./core/shared/loading/loading.component";
 import { SpinnerInterceptorService } from "./core/services/shared/spinner-interceptor.service";
 import { LoginComponent } from "./core/components/login/login.component";
-import { Login } from "./core/models/login";
 import { LoginGuard } from "./core/guards/login-guard";
 import { AuthService } from "./core/services/auth.service";
 

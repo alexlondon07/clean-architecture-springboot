@@ -30,8 +30,8 @@ implements PlayerRepository {
     }
 
     @Override
-    public Optional<Player> findByCellphone(String cellphone) {
-        return Optional.empty();
+    public Player findByCellphone(String cellphone) {
+        return PlayerData.getPlayerFromPlayerData(repository.findByCellphone(cellphone));
     }
 
     @Override

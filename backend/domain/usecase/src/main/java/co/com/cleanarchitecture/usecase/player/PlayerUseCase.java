@@ -2,10 +2,6 @@ package co.com.cleanarchitecture.usecase.player;
 
 import java.util.Collections;
 import java.util.List;
-
-import co.com.cleanarchitecture.model.category.Category;
-import co.com.cleanarchitecture.model.exception.BusinessException;
-import co.com.cleanarchitecture.model.exception.message.BusinessErrorMessage;
 import co.com.cleanarchitecture.model.player.Player;
 import co.com.cleanarchitecture.model.player.gateways.PlayerRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +15,6 @@ public class PlayerUseCase {
 
     public List<Player> getAllPlayers(){
         try {
-            logger.info("Successfully retrieved players list");
             return repository.getAll();
         }catch (Exception e){
             logger.error("Error Getting players list -->", e);
@@ -28,13 +23,15 @@ public class PlayerUseCase {
     }
 
     public Player getById(Long id){
-        logger.info("Retrieving player by id + " + id);
         return repository.findById(id);
+    }
+
+    public Player findByCellphone(String cellphone){
+        return repository.findByCellphone(cellphone);
     }
 
     public Player save(Player player) {
         try {
-            logger.info("Saving player with data : " + player.toString());
             return repository.save(player);
         } catch (Exception ex) {
             logger.error("Error saving player  -->", ex);
@@ -51,9 +48,4 @@ public class PlayerUseCase {
             return null;
         }
     }
-
-    private BusinessException getBusinessException(BusinessErrorMessage businessErrorMessage) {
-        return new BusinessException(businessErrorMessage);
-    }
-
 }

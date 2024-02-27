@@ -1,0 +1,50 @@
+<div>
+  <div class="add-title">
+      <h2 class="primary">{{ titleForm }}</h2>
+  </div>
+  <div>
+      <div>
+            <form [formGroup]="form" (change)="formChanged()" (ngSubmit)="onSubmit()">
+              <mat-grid-list cols="2" [cols]="breakpoint" rowHeight="90px" (window:resize)="onResize($event)">
+                  <mat-grid-tile>
+                      <div class="text-inside">
+                          <mat-form-field class="full-width">
+                              <input matInput placeholder="Name" formControlName="name" required>
+                              <mat-error *ngFor="let validation of validation_messages.name">
+                                <mat-error class="error-message" *ngIf="form.get('name').hasError(validation.type) && (form.get('name').dirty || form.get('name').touched)">{{validation.message}}</mat-error>
+                              </mat-error>
+                          </mat-form-field>
+                      </div>
+                  </mat-grid-tile>
+                  <mat-grid-tile>
+                      <div class="text-inside">
+                          <mat-form-field class="example-full-width">
+                              <mat-select placeholder="Position" formControlName="position">
+                                  <mat-option *ngFor="let positionName of positionList" [value]="positionName">{{positionName}}</mat-option>
+                              </mat-select>
+                              <mat-error *ngFor="let validation of validation_messages.position">
+                                <mat-error class="error-message" *ngIf="form.get('position').hasError(validation.type) && (form.get('position').dirty || form.get('position').touched)">{{validation.message}}</mat-error>
+                              </mat-error>
+                          </mat-form-field>
+                      </div>
+                  </mat-grid-tile>
+                  <mat-grid-tile>
+                    <div class="text-inside">
+                        <mat-form-field>
+                            <input matInput placeholder="Cellphone" formControlName="cellphone" required>
+                            <mat-error *ngFor="let validation of validation_messages.cellphone">
+                              <mat-error class="error-message" *ngIf="form.get('cellphone').hasError(validation.type) && (form.get('cellphone').dirty || form.get('cellphone').touched)">{{validation.message}}</mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </mat-grid-tile>
+              </mat-grid-list>
+
+              <div class="btn-sec">
+                  <button mat-raised-button [disabled]="!form.valid" type="submit" color="primary" class="Update-btn">{{ titleButton }}</button>
+                  <button mat-raised-button type="button" class="Discard-btn" (click)="openDialog()">Cancel</button>
+              </div>
+
+          </form>
+      </div>
+  </div>

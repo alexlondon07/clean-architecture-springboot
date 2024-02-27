@@ -18,11 +18,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 public class PlayerDTO implements Serializable {
-
     private Long id;
 
     @NotNull
-    @Size(max = 100)
+    @Size(min= 10, max = 100)
     private String name;
 
     @NotNull
@@ -30,7 +29,7 @@ public class PlayerDTO implements Serializable {
     private String position;
 
     @NotNull
-    @Size(min = 3, max = 12)
+    @Size(min = 6, max = 10)
     private String cellphone;
 
     public Player convertToEntity(PlayerDTO data) {

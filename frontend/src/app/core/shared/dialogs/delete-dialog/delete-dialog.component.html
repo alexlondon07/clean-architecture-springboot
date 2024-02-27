@@ -1,9 +1,12 @@
-
-
-
-<h2 mat-dialog-title>Información Importante</h2>
-<div mat-dialog-content> {{message}}</div>
+<h1 mat-dialog-title>{{ title }}</h1>
+<div mat-dialog-content>
+  {{message}}
+</div>
 <div mat-dialog-actions>
-  <button mat-raised-button color="primary" (click)="onConfirmClick()" tabindex="1">Yes</button>
-  <button mat-raised-button mat-dialog-close  (click)="onNoClick()"  tabindex="-1">Cancel</button>
+   <button mat-raised-button color="warn" (click)="onNoClick()">
+    Cancel
+  </button>
+  <button mat-raised-button color="primary" (click)="onConfirmClick()" cdkFocusInitial>
+    Ok
+  </button>
 </div>

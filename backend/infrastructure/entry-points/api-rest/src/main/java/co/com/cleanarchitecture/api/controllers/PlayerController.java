@@ -2,9 +2,11 @@ package co.com.cleanarchitecture.api.controllers;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
+import co.com.cleanarchitecture.api.exceptions.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.com.cleanarchitecture.api.dto.CategoryDTO;
 import co.com.cleanarchitecture.api.dto.PlayerDTO;
 import co.com.cleanarchitecture.api.exceptions.MissingDataException;
 import co.com.cleanarchitecture.api.exceptions.ResourceNotFoundException;
@@ -48,9 +49,8 @@ public class PlayerController {
 
     @GetMapping("/{id}")
     @PreAuthorize(Constants.ROLE_MODERADOR_AND_ADMIN)
-    public ResponseEntity<Player> showPlayer(@PathVariable Long id) {
-        validateIfExistPlayerById(id);
-        return new ResponseEntity<>(beanPlayerUseCase.getById(id), HttpStatus.OK);
+    public ResponseEntity<Player> show(@PathVariable Long id) {
+        return new ResponseEntity<>(validateIfExistPlayerById(id), HttpStatus.OK);
     }
 
     @PostMapping
@@ -58,12 +58,12 @@ public class PlayerController {
     public ResponseEntity<?> save(@Valid @RequestBody PlayerDTO playerDTO,
                                   BindingResult bindingResult) {
 
-        if (bindingResult.hasErrors()) {
-            return Utility.validateRequest(bindingResult);
-        }
+        getResponseEntity(bindingResult);
 
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(beanPlayerUseCase.save(playerDTO.convertToEntity(playerDTO)));
+        validateIfExistCellphone(playerDTO.getCellphone());
+
+        Player savedPlayer = beanPlayerUseCase.save(playerDTO.convertToEntity(playerDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedPlayer);
     }
 
 
@@ -75,22 +75,34 @@ public class PlayerController {
 
         validateIfExistPlayerById(id);
 
-        if (bindingResult.hasErrors()) {
-            return Utility.validateRequest(bindingResult);
-        }
+        getResponseEntity(bindingResult);
 
         playerDTO.setId(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(beanPlayerUseCase.update(playerDTO.convertToEntity(playerDTO)));
     }
 
-    private void validateIfExistPlayerById(Long id) {
-        if (Objects.isNull(id)) {
-            throw new MissingDataException();
-        }
-        if (Objects.isNull(beanPlayerUseCase.getById(id))) {
-            throw new ResourceNotFoundException();
+    private static void getResponseEntity(BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            Utility.validateRequest(bindingResult);
         }
     }
 
+    private Player validateIfExistPlayerById(Long id) {
+        if (Objects.isNull(id)) {
+            throw new MissingDataException();
+        }
+        Player player = beanPlayerUseCase.getById(id);
+        if (Objects.isNull(player)) {
+            throw new ResourceNotFoundException();
+        }
+
+        return player;
+    }
+
+    private void validateIfExistCellphone(String cellphone) {
+        if(!Objects.isNull(beanPlayerUseCase.findByCellphone(cellphone))) {
+            throw new DuplicateKeyException("Cellphone is already in use ");
+        }
+    }
 }
