@@ -11,4 +11,7 @@ export class SoccerGames {
   players: Player[];
   description: string;
   status: string;
+  enable: boolean;
+  created_at: Date;
+  updated_at: Date;
 }
