@@ -168,7 +168,6 @@ export class PlayerFormComponent implements OnInit {
 
   showErrorMessage(error: any){
     this.notificationService.error(error, 'Close');
-    console.log(error);
   }
 
   showSuccessMessage(success: any){

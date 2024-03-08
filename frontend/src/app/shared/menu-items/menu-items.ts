@@ -7,9 +7,13 @@ export interface Menu {
   icon: string;
 }
 
+// https://fonts.google.com/icons?selected=Material+Symbols+Outlined:component_exchange:FILL@0;wght@400;GRAD@0;opsz@24
 const MENUITEMS = [
   { state: 'dashboard', name: 'Dashboard', type: 'link', icon: 'av_timer' },
-  { state: 'button', type: 'link', name: 'Buttons', icon: 'crop_7_5' },
+  { state: 'category', type: 'link', name: 'Category', icon: 'tab' },
+  { state: 'player', type: 'link', name: 'Players', icon: 'person_add' },
+  { state: 'soccer-games', type: 'link', name: 'Soccer Games', icon: 'sports_soccer' },
+  { state: 'button', type: 'link', name: 'Buttons', icon: 'crop_7_7' },
   { state: 'grid', type: 'link', name: 'Grid List', icon: 'view_comfy' },
   { state: 'lists', type: 'link', name: 'Lists', icon: 'view_list' },
   { state: 'menu', type: 'link', name: 'Menu', icon: 'view_headline' },

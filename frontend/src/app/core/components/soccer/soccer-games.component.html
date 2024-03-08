@@ -1,0 +1,153 @@
+<!-- ============================================================== -->
+<!--  Form Data Details -->
+<!-- ============================================================== -->
+<div fxLayout="row">
+
+  <div fxFlex.gt-sm="45%">
+    <mat-card>
+      <mat-card-content>
+
+        <mat-card-title>Soccer Games</mat-card-title>
+        <mat-card-subtitle>In this section you can select the players for the current call for Soccer Games
+        </mat-card-subtitle>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+          <mat-card fxLayout="row">
+            <mat-form-field>
+              <input matInput type="date" placeholder="Date" formControlName="date" fxFlex="50">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput type="time" placeholder="Time" formControlName="time" fxFlex="50">
+            </mat-form-field>
+          </mat-card>
+
+          <mat-card fxLayout="row">
+
+            <mat-form-field>
+              <mat-select formControlName="field" [(value)]="selectedField" placeholder="Select field" fxFlex="50">
+                <mat-option value="CAMPO_AMOR">CAMPO AMOR</mat-option>
+                <mat-option value="BELEN">BELEN</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-select name="field" [(value)]="selectedFieldNumber" placeholder="Select field number" fxFlex="50">
+                <mat-option [value]="'1A'">1-C</mat-option>
+                <mat-option [value]="'1B'">1-C</mat-option>
+                <mat-option [value]="'1C'">1-C</mat-option>
+                <mat-option [value]="'2A'">2-A</mat-option>
+                <mat-option [value]="'2B'">2-B</mat-option>
+                <mat-option [value]="'2C'">2-C</mat-option>
+                <mat-option [value]="'3A'">3-A</mat-option>
+                <mat-option [value]="'3B'">3-B</mat-option>
+                <mat-option [value]="'3C'">3-C</mat-option>
+                <mat-option [value]="'4A'">4-A</mat-option>
+                <mat-option [value]="'4B'">4-B</mat-option>
+                <mat-option [value]="'4C'">4-C</mat-option>
+                <mat-option [value]="'5'">5</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </mat-card>
+
+          <mat-card fxLayout="row">
+
+            <mat-form-field>
+              <mat-select [(value)]="selectedPrice" name="price" placeholder="Select price" fxFlex="50">
+                <mat-option value="6500">6500</mat-option>
+                <mat-option value="7000">7000</mat-option>
+                <mat-option value="7500">7500</mat-option>
+                <mat-option value="8000">8000</mat-option>
+                <mat-option value="9000">9000</mat-option>
+                <mat-option value="9500">9500</mat-option>
+                <mat-option value="10000">10000</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput type="number" placeholder="Player Number" formControlName="playerNumber" fxFlex="50">
+            </mat-form-field>
+
+          </mat-card>
+
+          <mat-card fxLayout="row">
+            <mat-form-field>
+              <input matInput type="text" placeholder="Description" formControlName="description" fxFlex="100">
+            </mat-form-field>
+          </mat-card>
+
+        </form>
+
+        <mat-form-field>
+          <input matInput #input maxlength="15" (keyup)="applyFilter($event)" placeholder="Search player">
+        </mat-form-field>
+
+        <!-- ============================================================== -->
+        <!--  Table -->
+        <!-- ============================================================== -->
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" matSort>
+
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+              <mat-header-cell *matHeaderCellDef></mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="selectHandler(row)"
+                  [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+              </mat-cell>
+            </ng-container>
+            <!-- Name and Position -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Name / Position</th>
+              <td mat-cell *matCellDef="let element">{{ element.name }} / {{ element.position }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            </tr>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div fxFlex.gt-sm="55%">
+
+    <mat-card>
+      <mat-card-content>
+
+        <mat-card-title>Data Form - Recochitas FC</mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+
+        <mat-card>
+          <mat-card-content>
+            <mat-card-title>Players Selected</mat-card-title>
+            <mat-card-subtitle>Soccer Games</mat-card-subtitle>
+            <p>
+              Players selected: {{selection.selected.length}}
+            </p>
+            <mat-list>
+              <mat-list-item *ngFor="let player of selection.selected">
+                <h5 matLine>{{player.name}}</h5>
+                <p class="text-muted">{{player.position}}</p>
+              </mat-list-item>
+            </mat-list>
+
+          </mat-card-content>
+        </mat-card>
+      </mat-card-content>
+
+    </mat-card>
+
+  </div>
+
+</div>

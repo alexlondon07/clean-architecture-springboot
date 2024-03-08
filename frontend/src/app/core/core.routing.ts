@@ -3,6 +3,8 @@ import { BrandListComponent } from './components/brand/brand-list/brand-list.com
 import { CategoryListComponent } from './components/category/list/category-list.component';
 import { LoginGuard } from './guards/login-guard';
 import { PlayerListComponent } from './components/player/list/player-list.component';
+import { SoccerGamesComponent } from './components/soccer/soccer-games.component';
+import { SoccerGamesListComponent } from './components/soccer/create/soccer-games-list.component';
 
 
 export const CoreRoutes: Routes = [
@@ -20,6 +22,16 @@ export const CoreRoutes: Routes = [
     path: 'players',
     canActivate: [LoginGuard],
     component: PlayerListComponent
+  },
+  {
+    path: 'soccer-games-create',
+    canActivate: [LoginGuard],
+    component: SoccerGamesComponent
+  },
+  {
+    path: 'soccer-games-list',
+    canActivate: [LoginGuard],
+    component: SoccerGamesListComponent
   }
 
 ];

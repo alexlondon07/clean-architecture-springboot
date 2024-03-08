@@ -12,6 +12,9 @@ import org.springframework.validation.FieldError;
 
 public class Utility {
 
+    public Utility() {
+    }
+
     public static ResponseEntity<?> validateRequest(BindingResult ex) {
         Map<String, Object> response = new HashMap<>();
         List<Map<String, String>> errors = new ArrayList<>();
@@ -25,5 +28,11 @@ public class Utility {
         }
         response.put("errors", errors);
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    public static void getResponseEntity(BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            Utility.validateRequest(bindingResult);
+        }
     }
 }

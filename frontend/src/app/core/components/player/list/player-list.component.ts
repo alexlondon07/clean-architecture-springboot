@@ -61,7 +61,7 @@ export class PlayerListComponent implements AfterViewInit {
 
   getAllPlayers() {
     this.service.getAll().subscribe({
-      complete: () => console.info("complete getAllCategories"),
+      complete: () => console.info("complete getAllPlayers"),
       error: (err) => {
         console.log(err.error.message);
       },
