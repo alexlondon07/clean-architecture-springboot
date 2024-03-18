@@ -31,7 +31,7 @@ export class NotificationService {
    * @example
    * this.notificationService.error("confirm canceled");
    */
-  error(message: string, action = 'close') {
+  error(message: string, action = 'Error') {
     this.openSnackBar(message, action, 'error-snackbar');
   }
 
@@ -112,7 +112,7 @@ export class NotificationService {
     message: string,
     action: string,
     className = '',
-    duration = 3000
+    duration = 2000
   ) {
     this.snackBar.open(message, action, {
       duration: duration,

@@ -2,7 +2,6 @@ package co.com.cleanarchitecture.api.controllers;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import javax.validation.Valid;
 

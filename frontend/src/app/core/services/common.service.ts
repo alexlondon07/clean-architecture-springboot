@@ -7,10 +7,9 @@ import { AuthService } from "./auth.service";
 @Injectable({
   providedIn: "root",
 })
-export abstract class CommonService<E extends Generic> {
-  private token: String = "";
+export abstract class CommonService<E> {
 
-  protected baseEnpoint: string;
+  protected baseEndpoint: string;
 
   protected headers: HttpHeaders = new HttpHeaders({
     "Content-type": "application/json",
@@ -20,7 +19,7 @@ export abstract class CommonService<E extends Generic> {
   constructor(protected http: HttpClient, protected authService: AuthService) {}
 
   public getAll(): Observable<any> {
-    return this.http.get<E[]>(`${this.baseEnpoint}`, {
+    return this.http.get<E[]>(`${this.baseEndpoint}`, {
       headers: this.headers,
     });
   }
@@ -29,7 +28,7 @@ export abstract class CommonService<E extends Generic> {
     /*       const params = new HttpParams()
         .set('page', page)
         .set('size', size) */
-    return this.http.get<any>(`${this.baseEnpoint}/page/${page}/${size}`, {
+    return this.http.get<any>(`${this.baseEndpoint}/page/${page}/${size}`, {
       headers: this.headers,
     });
   }
@@ -44,37 +43,37 @@ export abstract class CommonService<E extends Generic> {
         .set('size', size)
         .set('text', text) */
     return this.http.get<any>(
-      `${this.baseEnpoint}/page/${page}/${size}/${text}`,
+      `${this.baseEndpoint}/page/${page}/${size}/${text}`,
       { headers: this.headers }
     );
   }
 
   public getById(id: number): Observable<E> {
-    return this.http.get<E>(`${this.baseEnpoint}/${id}`, {
+    return this.http.get<E>(`${this.baseEndpoint}/${id}`, {
       headers: this.headers,
     });
   }
 
   public create(data: E): Observable<E> {
-    return this.http.post<E>(`${this.baseEnpoint}/`, data, {
+    return this.http.post<E>(`${this.baseEndpoint}/`, data, {
       headers: this.headers,
     });
   }
 
-  public update(data: E): Observable<E> {
-    return this.http.put<E>(`${this.baseEnpoint}/${data["id"]}`, data, {
+  public update(data: any): Observable<E> {
+    return this.http.put<E>(`${this.baseEndpoint}/${data["id"]}`, data, {
       headers: this.headers,
     });
   }
 
   public delete(id: number): Observable<E> {
-    return this.http.delete<E>(`${this.baseEnpoint}/${id}`, {
+    return this.http.delete<E>(`${this.baseEndpoint}/${id}`, {
       headers: this.headers,
     });
   }
 
   public enable(id: number, enable: Boolean): Observable<any> {
-    return this.http.get<E>(`${this.baseEnpoint}/${id}/${enable}`, {
+    return this.http.get<E>(`${this.baseEndpoint}/${id}/${enable}`, {
       headers: this.headers,
     });
   }

@@ -12,6 +12,7 @@ const MENUITEMS = [
   { state: 'dashboard', name: 'Dashboard', type: 'link', icon: 'av_timer' },
   { state: 'category', type: 'link', name: 'Category', icon: 'tab' },
   { state: 'player', type: 'link', name: 'Players', icon: 'person_add' },
+  { state: 'soccer-games-list', type: 'link', name: 'Soccer Games List', icon: 'sports_soccer' },
   { state: 'soccer-games', type: 'link', name: 'Soccer Games', icon: 'sports_soccer' },
   { state: 'button', type: 'link', name: 'Buttons', icon: 'crop_7_7' },
   { state: 'grid', type: 'link', name: 'Grid List', icon: 'view_comfy' },

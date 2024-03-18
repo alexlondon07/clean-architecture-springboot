@@ -1,0 +1,85 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title>{{ title }}</mat-card-title>
+    <mat-card-subtitle>{{ description }} </mat-card-subtitle>
+
+    <mat-form-field>
+      <input matInput #input maxlength="15" (keyup)="applyFilter($event)" placeholder="Search">
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <!-- id Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Item.</th>
+          <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+          <td mat-cell *matCellDef="let element">  {{element.date | date: 'dd/MM/yyyy'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="time">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
+          <td mat-cell *matCellDef="let element">{{ element.time }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="field">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Field</th>
+          <td mat-cell *matCellDef="let element">{{ element.field }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Price</th>
+          <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="playerNumber">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Player Number</th>
+          <td mat-cell *matCellDef="let element">{{ element.playerNumber }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+          <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+          <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="icons">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+          <td mat-cell *matCellDef="let row; let i = index">
+
+            <button mat-icon-button color="accent" matTooltip="Edit" (click)="openDialog(row)">
+              <mat-icon aria-label="Edit">edit</mat-icon>
+            </button>
+
+           <button mat-icon-button color="accent" matTooltip="View" (click)="delete(row.id)">
+              <mat-icon aria-label="View">visibility</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
+    </div>
+  </mat-card-content>
+
+  <button class="mine" title="Save" mat-fab color="primary">
+    <mat-icon>save</mat-icon>
+  </button>
+</mat-card>
+

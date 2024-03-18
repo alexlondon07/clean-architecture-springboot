@@ -8,6 +8,6 @@ import { Category } from '../models/category';
 })
 export class CategoryService extends CommonService<Category> {
 
-  protected baseEnpoint = `${environment.urlBackendSpringBoot}/${environment.v1}/categories`;
+  protected baseEndpoint = `${environment.urlBackendSpringBoot}/${environment.v1}/categories`;
 
 }

@@ -20,6 +20,6 @@ public class SoccerGamesAdapter extends AdapterOperations<SoccerGames, SoccerGam
 
     @Override
     public List<SoccerGames> getAll() {
-        return null;
+        return super.findAllByOrderByField("DESC", "id");
     }
 }

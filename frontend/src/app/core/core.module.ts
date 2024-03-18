@@ -19,6 +19,7 @@ import { CategoryFormComponent } from "./components/category/create-edit/categor
 import { DeleteDialogComponent } from "./shared/dialogs/delete-dialog/delete-dialog.component";
 import { PlayerListComponent } from './components/player/list/player-list.component';
 import { PlayerFormComponent } from './components/player/create-edit/player-form.component';
+import { SoccerGamesComponent } from './components/soccer/soccer-games.component';
 @NgModule({
   imports: [
     CommonModule,

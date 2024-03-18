@@ -6,13 +6,15 @@ import {
 } from "@angular/core";
 import { MessageApp } from "src/app/utils/messages";
 import { Player } from "src/app/core/models/player";
-import { PlayerService } from "src/app/core/services/player.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { SelectionModel } from "@angular/cdk/collections";
 import { formatDate } from "@angular/common";
+import { SoccerGamesService } from '../../services/soccer-games.service';
+import { SoccerGames } from '../../models/soccer-games';
+import { PlayerService } from '../../services/player.service';
 
 @Component({
   selector: 'app-soccer-games',
@@ -20,55 +22,7 @@ import { formatDate } from "@angular/common";
   styleUrls: ['./soccer-games.component.css']
 })
 export class SoccerGamesComponent implements OnInit {
-  typesOfShoes = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
-  messages = [
-    {
-      from: 'Nirav joshi (nbj@gmail.com)',
-      image: 'assets/images/users/1.jpg',
-      subject: 'Material angular',
-      content: 'This is the material angular template'
-    },
-    {
-      from: 'Sunil joshi (sbj@gmail.com)',
-      image: 'assets/images/users/2.jpg',
-      subject: 'Wrappixel',
-      content: 'We have wrappixel launched'
-    },
-    {
-      from: 'Vishal Bhatt (bht@gmail.com)',
-      image: 'assets/images/users/3.jpg',
-      subject: 'Task list',
-      content: 'This is the latest task hasbeen done'
-    }
-  ];
-
-  folders = [
-    {
-      name: 'Photos',
-      updated: new Date('1/1/16')
-    },
-    {
-      name: 'Recipes',
-      updated: new Date('1/17/16')
-    },
-    {
-      name: 'Work',
-      updated: new Date('1/28/16')
-    }
-  ];
-  notes = [
-    {
-      name: 'Vacation Itinerary',
-      updated: new Date('2/20/16')
-    },
-    {
-      name: 'Kitchen Remodel',
-      updated: new Date('1/18/16')
-    }
-  ];
-
-  form: FormGroup;
-  playerList: Player[] = [];
+  soccerGamesForm: FormGroup;
   displayedColumns: string[] = [
     "select",
     "name"
@@ -76,7 +30,7 @@ export class SoccerGamesComponent implements OnInit {
   dataSource: MatTableDataSource<Player>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  selection = new SelectionModel<Player>(true, []);
+  players = new SelectionModel<Player>(true, []);
   selectedValue: string;
   selectedCar: string;
 
@@ -86,7 +40,8 @@ export class SoccerGamesComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private service: PlayerService,
+    private service: SoccerGamesService,
+    private playerService: PlayerService,
     public notificationService: NotificationService
   ) { }
 
@@ -95,18 +50,23 @@ export class SoccerGamesComponent implements OnInit {
     this.getAllPlayers();
   }
   buildForm() {
-    this.form = this.fb.group({
+    this.soccerGamesForm = this.fb.group({
+      id: [null], // Assuming id can be null for a new SoccerGame
       date: [formatDate(new Date, 'yyyy-MM-dd', 'en'), Validators.required],
       time: ['21:00:00', Validators.required],
       field: ['CAMPO_AMOR', Validators.required],
-      price: [6500, Validators.required],
+      fieldNumber: ['2A', Validators.required],
+      price: ["6500.00", Validators.required],
       playerNumber: ['18', Validators.required],
-      description: ['Ninguna', null]
+      description: ['Ninguna', null],
+      players: [this.players, Validators.required], // Nested form array for players
+      status: ['CONFIRMADA', Validators.required],
+      enable: [true, Validators.required], // Default value set to true
     });
   }
 
   getAllPlayers() {
-    this.service.getAll().subscribe({
+    this.playerService.getAll().subscribe({
       complete: () => console.info("complete getAllPlayers"),
       error: (err) => {
         this.notificationService.error(err.error.message, 'Close');
@@ -115,6 +75,21 @@ export class SoccerGamesComponent implements OnInit {
         this.dataSource = new MatTableDataSource(response);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+      },
+    });
+  }
+
+  saveSoccerGames(data: SoccerGames) {
+    this.service.create(data).subscribe({
+      complete: () => console.info("complete save Soccer Games"),
+      error: (err) => {
+        this.notificationService.error(err.error.message, 'Close');
+      },
+      next: (resp: any) => {
+
+        this.notificationService.success(MessageApp.GENERIC_MESSAGE_CREATED);
+
+        this.reloadPage();
       },
     });
   }
@@ -129,16 +104,32 @@ export class SoccerGamesComponent implements OnInit {
   }
 
   selectHandler(row: Player) {
-    this.selection.toggle(row);
+    this.players.toggle(row);
   }
 
   onSubmit() {
-    if (this.form.valid) {
-      // Handle form submission
-      console.log(this.form.value);
-    } else {
-      // Handle form errors
-      console.error('Form is invalid');
+
+    if(this.players.selected.length == 0){
+      this.notificationService.error('You must select players for soccer games');
+      return;
     }
+
+    if (!this.soccerGamesForm.valid) {
+      // Handle form errors
+      this.notificationService.error('You must review the required fields', 'Close');
+      return;
+    }
+
+    if (this.soccerGamesForm.valid) {
+      this.soccerGamesForm.patchValue({players: this.players.selected});
+      this.saveSoccerGames(this.soccerGamesForm.value);
+    }
+
+  }
+
+  reloadPage() {
+    setTimeout(()=>{
+      window.location.reload();
+    }, 1000);
   }
 }

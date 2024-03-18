@@ -172,7 +172,6 @@ export class PlayerFormComponent implements OnInit {
 
   showSuccessMessage(success: any){
     this.notificationService.success(success);
-    console.log(success);
   }
 
   validateForm(): void {

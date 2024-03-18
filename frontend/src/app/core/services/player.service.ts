@@ -7,5 +7,5 @@ import { Player } from '../models/player';
   providedIn: 'root'
 })
 export abstract class PlayerService extends CommonService<Player> {
-  protected baseEnpoint = `${environment.urlBackendSpringBoot}/${environment.v1}/players`;
+  protected baseEndpoint = `${environment.urlBackendSpringBoot}/${environment.v1}/players`;
 }
