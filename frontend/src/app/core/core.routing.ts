@@ -3,8 +3,10 @@ import { BrandListComponent } from './components/brand/brand-list/brand-list.com
 import { CategoryListComponent } from './components/category/list/category-list.component';
 import { LoginGuard } from './guards/login-guard';
 import { PlayerListComponent } from './components/player/list/player-list.component';
-import { SoccerGamesComponent } from './components/soccer/soccer-games.component';
-import { SoccerGamesListComponent } from './components/soccer/create/soccer-games-list.component';
+import { SoccerGamesViewComponent } from './components/soccer-games/view/soccer-games-view.component';
+import { SoccerGamesComponent } from './components/soccer-games/create/soccer-games.component';
+import { SoccerGamesListComponent } from './components/soccer-games/list/soccer-games-list.component';
+
 
 
 export const CoreRoutes: Routes = [
@@ -32,6 +34,5 @@ export const CoreRoutes: Routes = [
     path: 'soccer-games-list',
     canActivate: [LoginGuard],
     component: SoccerGamesListComponent
-  }
-
+  },
 ];

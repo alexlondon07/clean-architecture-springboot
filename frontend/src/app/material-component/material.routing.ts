@@ -18,7 +18,7 @@ import { SliderComponent } from './slider/slider.component';
 import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
 import { CategoryListComponent } from '../core/components/category/list/category-list.component';
 import { PlayerListComponent } from '../core/components/player/list/player-list.component';
-import { SoccerGamesComponent } from '../core/components/soccer/soccer-games.component';
+import { SoccerGamesComponent } from '../core/components/soccer-games/create/soccer-games.component';
 
 export const MaterialRoutes: Routes = [
   {

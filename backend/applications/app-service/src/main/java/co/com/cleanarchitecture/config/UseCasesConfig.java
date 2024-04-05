@@ -1,6 +1,8 @@
 package co.com.cleanarchitecture.config;
 
+import co.com.cleanarchitecture.model.position.gateways.PositionRepository;
 import co.com.cleanarchitecture.model.soccergames.SoccerGamesRepository;
+import co.com.cleanarchitecture.usecase.position.PositionUseCase;
 import co.com.cleanarchitecture.usecase.soccergames.SoccerGamesUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -56,6 +58,12 @@ public class UseCasesConfig {
     public SoccerGamesUseCase beanSoccerGamesUseCase(SoccerGamesRepository repository, LoggerRepository logger) {
         return new SoccerGamesUseCase(repository, logger);
     }
+
+    @Bean
+    public PositionUseCase positionGamesUseCase(PositionRepository repository, LoggerRepository logger) {
+        return new PositionUseCase(repository, logger);
+    }
+
     @Bean
     @Primary
     public UserUseCase beanUserUseCase(UserRepository repository, LoggerRepository logger) {

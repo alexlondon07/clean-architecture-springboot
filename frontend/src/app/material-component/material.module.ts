@@ -31,8 +31,11 @@ import { TooltipComponent } from './tooltip/tooltip.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
 import { SliderComponent } from './slider/slider.component';
 import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
-import { SoccerGamesComponent } from '../core/components/soccer/soccer-games.component';
-import { SoccerGamesListComponent } from '../core/components/soccer/create/soccer-games-list.component';
+
+// Components
+import { SoccerGamesViewComponent } from '../core/components/soccer-games/view/soccer-games-view.component';
+import { SoccerGamesListComponent } from '../core/components/soccer-games/list/soccer-games-list.component';
+import { SoccerGamesComponent } from '../core/components/soccer-games/create/soccer-games.component';
 
 @NgModule({
   imports: [
@@ -66,7 +69,8 @@ import { SoccerGamesListComponent } from '../core/components/soccer/create/socce
     SliderComponent,
     SlideToggleComponent,
     SoccerGamesComponent,
-    SoccerGamesListComponent
+    SoccerGamesListComponent,
+    SoccerGamesViewComponent
   ]
 })
 export class MaterialComponentsModule {}

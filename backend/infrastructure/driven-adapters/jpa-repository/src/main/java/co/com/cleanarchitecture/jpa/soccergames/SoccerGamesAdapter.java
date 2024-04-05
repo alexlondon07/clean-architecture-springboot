@@ -13,7 +13,6 @@ import java.util.List;
 public class SoccerGamesAdapter extends AdapterOperations<SoccerGames, SoccerGamesData, Long, SoccerGamesDataRepository>
         implements SoccerGamesRepository {
 
-
     public SoccerGamesAdapter(SoccerGamesDataRepository repository, ObjectMapper mapper) {
         super(repository, mapper, soccerGamesData -> mapper.map(soccerGamesData, SoccerGames.class));
     }

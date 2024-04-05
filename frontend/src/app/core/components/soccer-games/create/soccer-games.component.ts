@@ -1,4 +1,3 @@
-import { NotificationService } from './../../services/shared/notification.service';
 import {
   OnInit,
   Component,
@@ -12,9 +11,10 @@ import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { SelectionModel } from "@angular/cdk/collections";
 import { formatDate } from "@angular/common";
-import { SoccerGamesService } from '../../services/soccer-games.service';
-import { SoccerGames } from '../../models/soccer-games';
-import { PlayerService } from '../../services/player.service';
+import { SoccerGames } from "src/app/core/models/soccer-games";
+import { PlayerService } from "src/app/core/services/player.service";
+import { NotificationService } from "src/app/core/services/shared/notification.service";
+import { SoccerGamesService } from "src/app/core/services/soccer-games.service";
 
 @Component({
   selector: 'app-soccer-games',

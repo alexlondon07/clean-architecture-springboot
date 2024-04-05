@@ -15,7 +15,6 @@ public class SoccerGamesUseCase {
 
     public SoccerGames save(SoccerGames data) {
         try {
-            logger.info("Saving SoccerGames " + data.toString());
             return soccerGamesRepository.save(data);
         } catch (Exception ex) {
             logger.error("Error saving SoccerGames with data " + data.toString(), ex);

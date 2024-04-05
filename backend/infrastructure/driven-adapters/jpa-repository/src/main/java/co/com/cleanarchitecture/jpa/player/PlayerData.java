@@ -8,9 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import co.com.cleanarchitecture.jpa.user.UserData;
 import co.com.cleanarchitecture.model.player.Player;
-import co.com.cleanarchitecture.model.user.User;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

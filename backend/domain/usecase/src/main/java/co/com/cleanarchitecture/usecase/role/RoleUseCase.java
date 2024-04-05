@@ -7,10 +7,8 @@ import technicalogs.gateways.LoggerRepository;
 
 @RequiredArgsConstructor
 public class RoleUseCase {
-
     private final RoleRepository repository;
     private final LoggerRepository logger;
-
 
     public Role findByName(String name) {
         try {

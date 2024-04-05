@@ -1,9 +1,6 @@
 package co.com.cleanarchitecture.api.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +18,7 @@ public class Utility {
         for (FieldError violation : ex.getFieldErrors()) {
             Map<String, String> transformedError = new HashMap<>();
             String fieldName = violation.getField();
-            transformedError.put("error", "El campo " +
+            transformedError.put("error", " The field " +
                     fieldName.substring(fieldName.lastIndexOf('.') + 1) + " " +
                     violation.getDefaultMessage());
             errors.add(transformedError);

@@ -3,11 +3,11 @@
 <!-- ============================================================== -->
 <div fxLayout="row">
 
-  <div fxFlex.gt-sm="45%">
+  <div fxFlex.gt-sm="50%">
     <mat-card>
       <mat-card-content>
         <form [formGroup]="soccerGamesForm" (ngSubmit)="onSubmit()">
-          <mat-card-title>Soccer Games</mat-card-title>
+          <mat-card-title>Soccer Games - Recochitas FC</mat-card-title>
           <mat-card-subtitle>In this section you can select the players for the current call for Soccer Games
           </mat-card-subtitle>
 
@@ -122,12 +122,11 @@
     </mat-card>
   </div>
 
-  <div fxFlex.gt-sm="55%">
+  <div fxFlex.gt-sm="50%">
 
     <mat-card>
-      <mat-card-content>
 
-        <mat-card-title>Recochitas FC</mat-card-title>
+        <mat-card-title></mat-card-title>
         <mat-card-subtitle></mat-card-subtitle>
 
         <mat-card>
@@ -139,14 +138,13 @@
             </p>
             <mat-list>
               <mat-list-item *ngFor="let player of players.selected">
-                <h5 matLine>{{player.name}}</h5>
+                <p matLine>{{player.name}}</p>
                 <p class="text-muted">{{player.position}}</p>
               </mat-list-item>
             </mat-list>
 
           </mat-card-content>
         </mat-card>
-      </mat-card-content>
     </mat-card>
 
   </div>

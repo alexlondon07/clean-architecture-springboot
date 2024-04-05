@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SoccerGames } from 'src/app/core/models/soccer-games';
 import { SoccerGamesService } from 'src/app/core/services/soccer-games.service';
+import { SoccerGamesViewComponent } from '../view/soccer-games-view.component';
 
 @Component({
   selector: 'app-soccer-games-list',
@@ -30,7 +32,7 @@ export class SoccerGamesListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(public service: SoccerGamesService) { }
+  constructor(public service: SoccerGamesService, public _dialog: MatDialog) { }
 
   ngOnInit() {
     this.getAllSoccerGames();
@@ -59,5 +61,24 @@ export class SoccerGamesListComponent implements OnInit {
     }
   }
 
+  showSoccerGames(data: any): void {
+
+    const dialogRef = this._dialog.open(SoccerGamesViewComponent, {
+      width: "900px",
+      disableClose: false,
+      data: data,
+    });
+
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data) {
+        console.log(
+          "🚀 ~ SoccerGamesViewComponent ~ dialogRef.afterClosed ~ data:",
+          data
+        );
+        if (data["event"] == "close") {
+        }
+      }
+    });
+  }
 
 }

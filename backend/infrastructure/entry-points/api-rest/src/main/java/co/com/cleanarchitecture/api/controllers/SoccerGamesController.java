@@ -1,6 +1,9 @@
 package co.com.cleanarchitecture.api.controllers;
 
+import co.com.cleanarchitecture.api.dto.MessageResponse;
 import co.com.cleanarchitecture.api.dto.SoccerGamesDTO;
+import co.com.cleanarchitecture.api.exceptions.MissingDataException;
+import co.com.cleanarchitecture.api.exceptions.ResourceNotFoundException;
 import co.com.cleanarchitecture.api.util.Constants;
 import co.com.cleanarchitecture.api.util.Utility;
 import co.com.cleanarchitecture.model.soccergames.SoccerGames;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping(value = Constants.API_VERSION_V1 + "soccer-games", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -32,6 +36,12 @@ public class SoccerGamesController {
         return new ResponseEntity<>(soccerGamesList, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    @PreAuthorize(Constants.ROLE_MODERADOR_AND_ADMIN)
+    public ResponseEntity<SoccerGames> show(@PathVariable Long id) {
+        return new ResponseEntity<>(validateIfExistSoccerGamesById(id), HttpStatus.OK);
+    }
+
     @PostMapping
     @PreAuthorize(Constants.ROLE_MODERADOR_AND_ADMIN)
     public ResponseEntity<?> save(@Valid @RequestBody SoccerGamesDTO soccerGamesDTO,
@@ -39,9 +49,25 @@ public class SoccerGamesController {
 
         Utility.getResponseEntity(bindingResult);
 
+        if(soccerGamesDTO.getPlayers().isEmpty()){
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Players list is required"));
+        }
+
         SoccerGames soccerGames = beanSoccerGamesUseCase.save(soccerGamesDTO.convertToEntity(soccerGamesDTO));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(soccerGames);
     }
 
+    private SoccerGames validateIfExistSoccerGamesById(Long id) {
+        if (Objects.isNull(id)) {
+            throw new MissingDataException();
+        }
+        SoccerGames soccerGames = beanSoccerGamesUseCase.getById(id);
+        if (Objects.isNull(soccerGames)) {
+            throw new ResourceNotFoundException();
+        }
+        return soccerGames;
+    }
 }
