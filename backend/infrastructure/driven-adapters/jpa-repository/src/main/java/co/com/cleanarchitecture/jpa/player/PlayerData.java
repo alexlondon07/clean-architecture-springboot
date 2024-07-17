@@ -1,14 +1,10 @@
 package co.com.cleanarchitecture.jpa.player;
 
+import javax.persistence.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import co.com.cleanarchitecture.jpa.position.PositionData;
 import co.com.cleanarchitecture.model.player.Player;
+import co.com.cleanarchitecture.model.position.Position;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -29,8 +25,9 @@ public class PlayerData {
     @Column(length = 155, nullable = false)
     private String name;
 
-    @Column(length = 45, nullable = false)
-    private String position;
+    @OneToOne
+    @JoinColumn(name = "position_id")
+    private PositionData position;
 
     @Column(length = 12, nullable = false, unique = true)
     private String cellphone;
@@ -43,10 +40,15 @@ public class PlayerData {
         if (playerData==null)
             return null;
 
+        Position position = Position.builder()
+                .id(playerData.getPosition().getId())
+                .position(playerData.getPosition().getPosition())
+                .abbreviation(playerData.getPosition().getAbbreviation()).build();
+
         return Player.builder()
                 .id(playerData.getId())
                 .name(playerData.getName())
-                .position(playerData.getPosition())
+                .position(position)
                 .cellphone(playerData.getCellphone())
                 .photo(playerData.getPhoto())
                 .build();

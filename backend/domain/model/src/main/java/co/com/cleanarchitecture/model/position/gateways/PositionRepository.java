@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface PositionRepository {
     List<Position> getPositionsAll();
+
+    Position findById(Long id);
 }

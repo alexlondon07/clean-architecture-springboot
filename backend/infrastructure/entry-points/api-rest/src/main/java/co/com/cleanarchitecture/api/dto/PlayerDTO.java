@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import co.com.cleanarchitecture.model.player.Player;
+import co.com.cleanarchitecture.model.position.Position;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,8 +26,7 @@ public class PlayerDTO implements Serializable {
     private String name;
 
     @NotNull
-    @Size(min = 3, max = 45)
-    private String position;
+    private Position position;
 
     @NotNull
     @Size(min = 6, max = 10)

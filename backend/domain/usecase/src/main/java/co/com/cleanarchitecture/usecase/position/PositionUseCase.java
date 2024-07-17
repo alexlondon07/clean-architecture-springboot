@@ -11,15 +11,19 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class PositionUseCase {
-    private final PositionRepository repository;
+    private final PositionRepository positionRepository;
 
     private final LoggerRepository logger;
 
-    public List<Position> getAll(){
+    public List<Position> getAll() {
         try {
-            return repository.getPositionsAll();
-        }catch (Exception e){
+            return positionRepository.getPositionsAll();
+        } catch (Exception e) {
             return Collections.emptyList();
         }
+    }
+
+    public Position getById(Long id) {
+        return positionRepository.findById(id);
     }
 }

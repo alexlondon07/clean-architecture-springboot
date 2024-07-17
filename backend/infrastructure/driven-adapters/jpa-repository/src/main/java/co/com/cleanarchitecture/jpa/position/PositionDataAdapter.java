@@ -1,6 +1,5 @@
 package co.com.cleanarchitecture.jpa.position;
 
-import co.com.cleanarchitecture.jpa.helper.AdapterOperations;
 import co.com.cleanarchitecture.jpa.helper.AdapterOperationsSimple;
 import co.com.cleanarchitecture.model.position.Position;
 import co.com.cleanarchitecture.model.position.gateways.PositionRepository;
@@ -17,8 +16,14 @@ public class PositionDataAdapter extends AdapterOperationsSimple<
     public PositionDataAdapter(PositionDataRepository repository, ObjectMapper mapper) {
         super(repository, mapper, positionData -> mapper.map(positionData, Position.class));
     }
+
     @Override
     public List<Position> getPositionsAll() {
         return super.findAll();
+    }
+
+    @Override
+    public Position findById(Long id) {
+        return super.findById(id);
     }
 }

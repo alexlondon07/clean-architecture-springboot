@@ -26,16 +26,11 @@ import co.com.cleanarchitecture.usecase.user.UserUseCase;
 import technicalogs.gateways.LoggerRepository;
 
 @Configuration
-@ComponentScan(basePackages = "co.com.cleanarchitecture.usecase",
-        includeFilters = {
-                @ComponentScan.Filter(type = FilterType.REGEX, pattern = "^.+UseCase$")
-        },
-        useDefaultFilters = false)
+@ComponentScan(basePackages = "co.com.cleanarchitecture.usecase", includeFilters = {@ComponentScan.Filter(type = FilterType.REGEX, pattern = "^.+UseCase$")}, useDefaultFilters = false)
 public class UseCasesConfig {
 
     @Bean
-    public CategoryUseCase beanCategoryUseCase(CategoryRepository repository,
-                                               LoggerRepository logger) {
+    public CategoryUseCase beanCategoryUseCase(CategoryRepository repository, LoggerRepository logger) {
         return new CategoryUseCase(repository, logger);
     }
 
@@ -45,8 +40,7 @@ public class UseCasesConfig {
     }
 
     @Bean
-    public TypeDocIdentificationUseCase beanTypeDocIdentificationUseCase(
-            TypeDocIdentificationRepository repository, LoggerRepository logger) {
+    public TypeDocIdentificationUseCase beanTypeDocIdentificationUseCase(TypeDocIdentificationRepository repository, LoggerRepository logger) {
         return new TypeDocIdentificationUseCase(repository, logger);
     }
 
@@ -54,6 +48,7 @@ public class UseCasesConfig {
     public BrandUseCase beanBrandUseCase(BrandRepository repository, LoggerRepository logger) {
         return new BrandUseCase(repository, logger);
     }
+
     @Bean
     public SoccerGamesUseCase beanSoccerGamesUseCase(SoccerGamesRepository repository, LoggerRepository logger) {
         return new SoccerGamesUseCase(repository, logger);

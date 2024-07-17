@@ -2,6 +2,7 @@ package co.com.cleanarchitecture.model.player;
 
 import java.io.Serializable;
 
+import co.com.cleanarchitecture.model.position.Position;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +17,7 @@ import lombok.Setter;
 public class Player implements Serializable {
     private Long id;
     private String name;
-    private String position;
+    private Position position;
     private String cellphone;
     private String photo;
 }

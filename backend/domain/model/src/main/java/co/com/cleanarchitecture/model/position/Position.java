@@ -12,5 +12,5 @@ import java.io.Serializable;
 public class Position implements Serializable {
     private Long id;
     private String position;
-    private String description;
+    private String abbreviation;
 }

@@ -52,10 +52,17 @@ public class SoccerGamesData {
     @Column(length = 155, nullable = true)
     private String description;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    /*@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "soccer_games_players",
             joinColumns = @JoinColumn(name = "soccer_games_id"),
-            inverseJoinColumns = @JoinColumn(name = "player_id"))
+            inverseJoinColumns = @JoinColumn(name = "player_id"))*/
+
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable( name = "soccer_games_players",
+            joinColumns = @JoinColumn( name = "player_id"),
+            inverseJoinColumns = @JoinColumn( name = "soccer_games_id"))
     private Set<PlayerData> players = new HashSet<>();
 
     @Column(length = 20)
@@ -65,7 +72,7 @@ public class SoccerGamesData {
     private Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = true, name = "updated_at",
+    @Column(name = "updated_at",
             updatable = false,
             columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date updatedAt;

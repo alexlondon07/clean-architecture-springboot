@@ -31,7 +31,6 @@ public class BrandData {
     private String name;
 
     private boolean enable = true;
-
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
@@ -40,4 +39,5 @@ public class BrandData {
     public void prePersist() {
         createdAt = new Date();
     }
+
 }
