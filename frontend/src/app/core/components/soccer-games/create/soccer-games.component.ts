@@ -1,7 +1,8 @@
 import {
   OnInit,
   Component,
-  ViewChild
+  ViewChild,
+  ElementRef
 } from "@angular/core";
 import { MessageApp } from "src/app/utils/messages";
 import { Player } from "src/app/core/models/player";
@@ -31,12 +32,11 @@ export class SoccerGamesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   players = new SelectionModel<Player>(true, []);
-  selectedValue: string;
-  selectedCar: string;
-
   selectedField: string = "CAMPO_AMOR";
   selectedFieldNumber: string = "2B";
   selectedPrice: string = "6500";
+
+  @ViewChild('searchInput') searchInput: ElementRef;
 
   constructor(
     private fb: FormBuilder,
@@ -58,7 +58,7 @@ export class SoccerGamesComponent implements OnInit {
       fieldNumber: ['2A', Validators.required],
       price: ["6500.00", Validators.required],
       playerNumber: ['18', Validators.required],
-      description: ['Ninguna', null],
+      description: ['Cancha a nombre de: ', null],
       players: [this.players, Validators.required], // Nested form array for players
       status: ['CONFIRMADA', Validators.required],
       enable: [true, Validators.required], // Default value set to true
@@ -80,6 +80,7 @@ export class SoccerGamesComponent implements OnInit {
   }
 
   saveSoccerGames(data: SoccerGames) {
+    console.log(data);
     this.service.create(data).subscribe({
       complete: () => console.info("complete save Soccer Games"),
       error: (err) => {
@@ -104,7 +105,10 @@ export class SoccerGamesComponent implements OnInit {
   }
 
   selectHandler(row: Player) {
+    row.created_at = (new Date().toISOString());
     this.players.toggle(row);
+    this.searchInput.nativeElement.value = '';
+    this.searchInput.nativeElement.focus();
   }
 
   onSubmit() {

@@ -32,6 +32,7 @@
 
             <mat-form-field>
               <mat-select formControlName="fieldNumber" placeholder="Select field number" fxFlex="50">
+                <mat-option [value]="'NA'">NA</mat-option>
                 <mat-option [value]="'1A'">1-A</mat-option>
                 <mat-option [value]="'1B'">1-B</mat-option>
                 <mat-option [value]="'1C'">1-C</mat-option>
@@ -71,12 +72,12 @@
 
           <mat-card fxLayout="row">
             <mat-form-field>
-              <input matInput type="text" placeholder="Description" formControlName="description" fxFlex="100">
+              <input matInput type="text" placeholder="Description" formControlName="description" fxFlex="100" >
             </mat-form-field>
           </mat-card>
 
           <mat-form-field>
-            <input matInput #input maxlength="15" (keyup)="applyFilter($event)" placeholder="Search player">
+            <input matInput type="text" #searchInput maxlength="15" (keyup)="applyFilter($event)" placeholder="Search player">
           </mat-form-field>
 
           <!-- ============================================================== -->
@@ -105,7 +106,7 @@
 
               <!-- Row shown when there is no matching data. -->
               <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{searchInput.value}}"</td>
               </tr>
             </table>
 
@@ -136,12 +137,18 @@
             <p>
               Players selected: {{players.selected.length}}
             </p>
-            <mat-list>
-              <mat-list-item *ngFor="let player of players.selected">
-                <p matLine>{{player.name}}</p>
-                <p class="text-muted">{{player.position}}</p>
-              </mat-list-item>
-            </mat-list>
+
+
+            <table>
+              <tr>
+                <th></th>
+              </tr>
+              <tr *ngFor="let player of players.selected; let i = index">
+                <div>
+                  <td>{{ i + 1 }}. {{player.name}}</td>
+                </div>
+              </tr>
+            </table>
 
           </mat-card-content>
         </mat-card>

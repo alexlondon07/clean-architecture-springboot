@@ -4,4 +4,5 @@ export class Player {
   position: string;
   cellphone: string;
   photo: string;
+  created_at: string;
 }

@@ -1,26 +1,22 @@
-<!-- ============================================================== -->
-<!--  View Soccer Games
-<!-- ============================================================== -->
-<div fxLayout="row">
-  <div fxFlex.gt-sm="100%">
-    <mat-card>
-      <mat-card-content>
-        <mat-card-title>Recochitas FC - Soccer Games # {{ soccerGames.id }}</mat-card-title>
-        <mat-card-subtitle> Date: {{ soccerGames.date | date }} / {{ soccerGames.time | slice : 0 : 5 }}</mat-card-subtitle>
-        <mat-card-subtitle> Field: {{ soccerGames.field }} - {{ soccerGames.fieldNumber }}</mat-card-subtitle>
-        <mat-card-subtitle> Price: {{ soccerGames.price }}</mat-card-subtitle>
-        <mat-card-subtitle> Description: {{ soccerGames.description }}</mat-card-subtitle>
-        <h3>Players selected {{ soccerGames.players.length }}</h3>
-        <mat-list>
-          <mat-list-item *ngFor="let player of soccerGames.players; let i = index">
-            <span>
-                {{ i + 1 }} . {{ player.name }} -
-                {{ player.position }}
-            </span>
-          </mat-list-item>
-        </mat-list>
+  <mat-card class="no-space">
 
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div>
+      <mat-card-title>Recochitas FC - Soccer Games # {{ soccerGames.id }}</mat-card-title>
+      <mat-card-subtitle> Date: {{ soccerGames.date | date }} / {{ soccerGames.time | slice : 0 : 5 }}</mat-card-subtitle>
+      <mat-card-subtitle> Field: {{ soccerGames.field }} - {{ soccerGames.fieldNumber }}</mat-card-subtitle>
+      <mat-card-subtitle> Price: {{ soccerGames.price }}</mat-card-subtitle>
+      <mat-card-subtitle> Description: {{ soccerGames.description }}</mat-card-subtitle>
+      <mat-card-subtitle>Players selected {{ soccerGames.players.length }}</mat-card-subtitle>
+      <table>
+        <tr>
+          <th></th>
+        </tr>
+        <tr *ngFor="let player of soccerGames.players; let i = index">
+          <div>
+            <td>{{ i + 1 }}. {{player.name}}</td>
+          </div>
+        </tr>
+      </table>
+  </mat-card>
+
+
+
